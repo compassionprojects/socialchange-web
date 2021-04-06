@@ -1,7 +1,8 @@
 ## NVC Social Change Data
 
+This project is a global effort to collect all social change stories (data) where Nonviolent Communication has been a part of.
+
 - [Mockups and design](https://www.figma.com/file/b3Dk9u5DMyV6qUSw7H9hKT/NVC-Social-Change-Mockups?node-id=0%3A1)
---
 
 ## Getting Started
 
