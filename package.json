@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "prestart": "npm run build",
+    "start": "next start -p ${PORT-3000}"
   },
   "husky": {
     "hooks": {
