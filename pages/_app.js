@@ -1,5 +1,13 @@
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import React from 'react';
+import PropTypes from 'proptypes';
+
+function App({ Component, pageProps }) {
+  return <Component {...pageProps} />;
 }
 
-export default MyApp
+export default App;
+
+App.propTypes = {
+  Component: PropTypes.node,
+  pageProps: PropTypes.object,
+};
