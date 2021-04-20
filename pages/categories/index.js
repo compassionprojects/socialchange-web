@@ -1,12 +1,14 @@
 import React from 'react';
 import PropType from 'proptypes';
 import Link from 'components/Link';
+import Meta from 'components/Meta';
 
 export default function Categories(props) {
   const { categories } = props;
   return (
     <div className="container py-5">
       <h1>Categories</h1>
+      <Meta title="Categories | NVC Social Change" />
 
       {categories.map((c, i) => (
         <span key={c.id}>

@@ -1,11 +1,13 @@
 import React from 'react';
 import PropType from 'proptypes';
+import Meta from 'components/Meta';
 
 export default function Users(props) {
   const { user } = props;
   return (
     <div className="container py-5">
       <h1>{user.name}</h1>
+      <Meta title={`${user.name} | NVC Social Change`} />
     </div>
   );
 }

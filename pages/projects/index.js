@@ -6,12 +6,15 @@ import truncate from 'truncate';
 import Link from 'components/Link';
 import { FiMapPin, FiClock } from 'react-icons/fi';
 import moment from 'moment';
+import Meta from 'components/Meta';
 
 export default function Projects(props) {
   const { projects } = props;
   return (
     <div className="container py-5">
       <h1>Projects</h1>
+
+      <Meta title="Projects | NVC Social Change" />
 
       {projects.map((p, idx) => (
         <div
