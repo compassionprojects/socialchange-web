@@ -29,7 +29,7 @@ module.exports = {
         ignoreRegExpLiterals: true,
       },
     ],
-    quotes: ['error', 'single'],
+    quotes: ['error', 'single', { avoidEscape: true }],
     camelcase: 'off',
     'no-console': 'off',
   },

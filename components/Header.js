@@ -8,6 +8,8 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
+import Link from 'components/Link';
+import { FiArrowUpRight } from 'react-icons/fi';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,20 +23,26 @@ function Header() {
       expand="md"
       className="py-4 bg-white border-bottom">
       <div className="container">
-        <NavbarBrand href="/">
+        <NavbarBrand href="/" tag={Link}>
           NVC Social Change <code className="text-muted">&#123;data&#125;</code>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem className="ml-md-3">
-              <NavLink href="/projects">Projects</NavLink>
+              <NavLink tag={Link} href="/projects">
+                Projects
+              </NavLink>
             </NavItem>
             <NavItem className="ml-md-3">
-              <NavLink href="/#about">About</NavLink>
+              <NavLink tag={Link} href="/#about">
+                About
+              </NavLink>
             </NavItem>
             <NavItem className="ml-md-3">
-              <NavLink href="mailto:madhu@nomaddev.co">Contact</NavLink>
+              <NavLink tag={Link} href="mailto:madhu@nomaddev.co">
+                Contact
+              </NavLink>
             </NavItem>
             <NavItem className="ml-md-3">
               <a
@@ -42,7 +50,7 @@ function Header() {
                 href="https://opencollective.com/nvc-social-change"
                 target="_blank"
                 rel="noopener noreferrer">
-                Donate
+                Donate <FiArrowUpRight />
               </a>
             </NavItem>
           </Nav>

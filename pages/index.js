@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'components/Link';
 import Meta from 'components/Meta';
+import { FiArrowUpRight } from 'react-icons/fi';
 
 export default function Home() {
   return (
@@ -88,7 +89,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary">
-              Donate
+              Donate <FiArrowUpRight />
             </a>
           </div>
         </section>
