@@ -13,9 +13,11 @@ export default function Projects(props) {
   return (
     <div className="container py-5">
       <h1>Projects</h1>
-
       <Meta title="Projects | NVC Social Change" />
-
+      <div className="mt-3">
+        These are some Social Change projects that our community members have
+        added where NVC has been a part of.
+      </div>
       {projects.map((p, idx) => (
         <div
           className={classnames('py-5', {
@@ -58,7 +60,9 @@ export default function Projects(props) {
               </div>
             )}
           </div>
-          <div className="mt-2 mb-3 d-flex align-items-center text-muted">
+          <div
+            className="mt-2 mb-3 d-flex align-items-center text-muted"
+            style={{ fontSize: '90%' }}>
             <span className="mr-4">
               <FiMapPin /> {p.location.name}
             </span>
