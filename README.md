@@ -10,6 +10,7 @@ Clone the repo and then
 
 ```sh
 npm i
+cp .env.local.example .env.local
 npm run dev
 ```
 
