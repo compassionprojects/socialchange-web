@@ -9,6 +9,7 @@ export default function Category(props) {
     <div className="container py-5">
       <h1>{category.name}</h1>
       <Meta title={`${category.name} | NVC Social Change`} />
+      Projects under category {category.name}
       <ProjectsList projects={projects} />
     </div>
   );
