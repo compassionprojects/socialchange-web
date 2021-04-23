@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Meta from 'components/Meta';
 import Link from 'components/Link';
 import TimeAgo from 'react-timeago';
-import { FiList, FiUsers, FiClock, FiMap } from 'react-icons/fi';
+import { FiList, FiUsers, FiClock, FiMapPin } from 'react-icons/fi';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 
@@ -44,9 +44,9 @@ export default function Project(props) {
               <p>{p.intentions}</p>
             </section>
           </div>
-          <div className="col-lg-4 col-sm-12">
+          <div className="col-lg-4 col-sm-12 pb-4">
             <div className="py-1 d-flex align-items-center">
-              <FiList />
+              <FiList className="text-black-50" />
               <span className="ml-2">
                 <strong>Category</strong>:{' '}
                 <Link href={`/categories/${p.category.id}`}>
@@ -56,21 +56,21 @@ export default function Project(props) {
             </div>
 
             <div className="py-1 d-flex align-items-center">
-              <FiMap />
+              <FiMapPin className="text-black-50" />
               <span className="ml-2">
                 <strong>Location</strong>: {p.location.name}
               </span>
             </div>
 
             <div className="py-1 d-flex align-items-center">
-              <FiUsers />
+              <FiUsers className="text-black-50" />
               <span className="ml-2">
                 <strong># of people</strong>: {p.num_people}
               </span>
             </div>
 
             <div className="py-1 d-flex align-items-center">
-              <FiClock />
+              <FiClock className="text-black-50" />
               <span className="ml-2">
                 <strong>Duration</strong>:{' '}
                 {moment(p.end_date).diff(moment(p.start_date), 'months')} months
