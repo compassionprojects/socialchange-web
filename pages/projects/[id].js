@@ -1,8 +1,11 @@
 import React from 'react';
 import PropType from 'proptypes';
+import moment from 'moment';
+import styled from 'styled-components';
 import Meta from 'components/Meta';
 import Link from 'components/Link';
 import TimeAgo from 'react-timeago';
+import { FiList, FiUsers, FiClock, FiMap } from 'react-icons/fi';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 
@@ -28,32 +31,69 @@ export default function Project(props) {
           <Link href={`/categories/${p.category.id}`}>{p.category.name}</Link>
         </div>
 
-        <section className="py-4">
-          <h3>Description</h3>
-          <p>{p.description}</p>
-        </section>
-        <section className="py-4">
-          <h3>
-            Intentions <small className="text-muted">of the project</small>
-          </h3>
-          <p>{p.intentions}</p>
-        </section>
+        <div className="row">
+          <div className="col-lg-8 col-sm-12">
+            <section className="py-4">
+              <SectionTitle>Description</SectionTitle>
+              <p>{p.description}</p>
+            </section>
+            <section className="py-4">
+              <SectionTitle>
+                Intentions <small className="text-muted">of the project</small>
+              </SectionTitle>
+              <p>{p.intentions}</p>
+            </section>
+          </div>
+          <div className="col-lg-4 col-sm-12">
+            <div className="py-1 d-flex align-items-center">
+              <FiList />
+              <span className="ml-2">
+                <strong>Category</strong>:{' '}
+                <Link href={`/categories/${p.category.id}`}>
+                  {p.category.name}
+                </Link>
+              </span>
+            </div>
+
+            <div className="py-1 d-flex align-items-center">
+              <FiMap />
+              <span className="ml-2">
+                <strong>Location</strong>: {p.location.name}
+              </span>
+            </div>
+
+            <div className="py-1 d-flex align-items-center">
+              <FiUsers />
+              <span className="ml-2">
+                <strong># of people</strong>: {p.num_people}
+              </span>
+            </div>
+
+            <div className="py-1 d-flex align-items-center">
+              <FiClock />
+              <span className="ml-2">
+                <strong>Duration</strong>:{' '}
+                {moment(p.end_date).diff(moment(p.start_date), 'months')} months
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <Map position={[p.location.lat, p.location.lng]} title={p.title} />
 
       <div className="container pt-4 pb-5">
         <section className="py-4">
-          <h3>
+          <SectionTitle>
             Outcomes <small className="text-muted">after using NVC</small>
-          </h3>
+          </SectionTitle>
           <p>{p.outcomes}</p>
         </section>
         <section className="py-4">
-          <h3>
+          <SectionTitle>
             Observed Societal Change{' '}
             <small className="text-muted">as a result of this project</small>
-          </h3>
+          </SectionTitle>
           <p>{p.societal_change}</p>
         </section>
       </div>
@@ -74,3 +114,7 @@ export async function getServerSideProps(ctx) {
     props: { project },
   };
 }
+
+const SectionTitle = styled.div.attrs({
+  className: 'h5',
+})``;
