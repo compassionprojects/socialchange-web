@@ -30,11 +30,7 @@ export default function Projects(props) {
           <div className="text-muted small">
             <TimeAgo date={p.created_at} /> by{' '}
             <Link href={`/users/${p.author.id}`}>{p.author.name}</Link> in{' '}
-            {p.categories.map((c) => (
-              <Link key={c.id} href={`/categories/${c.id}`} className="mr-1">
-                {c.name}
-              </Link>
-            ))}
+            <Link href={`/categories/${p.category.id}`}>{p.category.name}</Link>
           </div>
           <div className="row py-2">
             <div
