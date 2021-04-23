@@ -37,7 +37,7 @@ export default function Projects(props) {
               className={classnames('col-sm-12', {
                 'col-lg-6': p.image_urls.length > 0,
               })}>
-              {truncate(p.introduction, 140)}
+              {truncate(p.description, 140)}
             </div>
             {p.image_urls.length > 0 && (
               <div className="col-sm-12 col-lg-6 my-lg-0 my-2">
