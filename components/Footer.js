@@ -4,7 +4,7 @@ import { FiArrowUpRight } from 'react-icons/fi';
 
 export default function Footer() {
   return (
-    <footer className="py-5 border-top">
+    <footer className="py-5 border-top bg-light">
       <div className="container">
         <ul className="list-inline">
           <li className="list-inline-item mr-4 text-muted">
