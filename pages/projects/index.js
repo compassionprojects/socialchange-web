@@ -1,5 +1,6 @@
 import React from 'react';
 import PropType from 'proptypes';
+import qs from 'qs';
 import Meta from 'components/Meta';
 import ProjectsList from 'components/ProjectsList';
 
@@ -22,8 +23,10 @@ Projects.propTypes = {
   projects: PropType.array,
 };
 
-export async function getServerSideProps() {
-  const res = await fetch(`${process.env.API_ROOT}/api/projects`);
+export async function getServerSideProps(ctx) {
+  const res = await fetch(
+    `${process.env.API_ROOT}/api/projects?${qs.stringify(ctx.query)}`
+  );
   const { projects, count } = await res.json();
 
   return {

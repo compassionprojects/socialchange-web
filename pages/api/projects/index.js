@@ -9,8 +9,9 @@ export const defaultFilters = {
 };
 
 export default async (req, res) => {
-  const limit = 15;
-  const offset = 0;
+  const { page, per_page } = req.query;
+  const limit = parseInt(per_page, 10) || 15;
+  const offset = (parseInt(page, 10) - 1 || 0) * limit;
   const filter = {
     ...defaultFilters,
   };
