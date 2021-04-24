@@ -1,21 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { knex } from '../../../db/config';
+import { defaultFilters } from './index';
 const knexPostgis = require('knex-postgis');
 const st = knexPostgis(knex);
 
-export const defaultFilters = {
-  'project_status.name': 'published', // only fetch 'published' projects
-};
-
 export default async (req, res) => {
-  const limit = 15;
-  const offset = 0;
+  const { project_id } = req.query;
   const filter = {
     ...defaultFilters,
+    'projects.id': project_id,
   };
 
-  const projects = await knex
+  const [project] = await knex
     .select([
       'projects.id',
       'title',
@@ -38,14 +35,7 @@ export default async (req, res) => {
     .innerJoin('categories', 'projects.category', 'categories.id')
     .innerJoin('users', 'projects.created_by', 'users.id')
     .innerJoin('project_status', 'projects.status', 'project_status.id')
-    .where(filter)
-    .limit(limit)
-    .offset(offset);
-
-  const [count] = await knex('projects')
-    .innerJoin('project_status', 'projects.status', 'project_status.id')
-    .count('projects.id')
     .where(filter);
 
-  res.status(200).json({ projects, ...count });
+  res.status(200).json(project);
 };

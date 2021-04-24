@@ -19,20 +19,19 @@ export default function ProjectsList(props) {
         <h2 className="d-inline-block">{p.title}</h2>
       </Link>
       <div className="text-muted small">
-        <TimeAgo date={p.created_at} /> by{' '}
-        <Link href={`/users/${p.author.id}`}>{p.author.name}</Link> in{' '}
-        <Link href={`/categories/${p.category.id}`}>{p.category.name}</Link>
+        <TimeAgo date={p.created_at} /> by {p.author_name} in{' '}
+        <Link href={`/categories/${p.category_id}`}>{p.category_name}</Link>
       </div>
       <div className="row py-2">
         <div
           className={classnames('col-sm-12', {
-            'col-lg-6': p.image_urls.length > 0,
+            'col-lg-6': (p.image_urls || []).length > 0,
           })}>
           {truncate(p.description, 140)}
         </div>
-        {p.image_urls.length > 0 && (
+        {(p.image_urls || []).length > 0 && (
           <div className="col-sm-12 col-lg-6 my-lg-0 my-2">
-            {p.image_urls.slice(0, 2).map((url, i) => (
+            {(p.image_urls || []).slice(0, 2).map((url, i) => (
               <Link href={`/projects/${p.id}`} key={i}>
                 <img
                   src={url}
@@ -41,8 +40,10 @@ export default function ProjectsList(props) {
                 />
               </Link>
             ))}
-            {p.image_urls.length > 2 && (
-              <span className="h5 ml-3">+{p.image_urls.length - 2}</span>
+            {(p.image_urls || []).length > 2 && (
+              <span className="h5 ml-3">
+                +{(p.image_urls || []).length - 2}
+              </span>
             )}
           </div>
         )}
@@ -50,11 +51,14 @@ export default function ProjectsList(props) {
       <div
         className="mt-2 mb-3 d-flex align-items-center text-muted"
         style={{ fontSize: '90%' }}>
-        <span className="mr-4">
-          <FiMapPin /> {p.location.name}
-        </span>
+        {p.location && (
+          <span className="mr-4">
+            <FiMapPin /> {p.location.name}
+          </span>
+        )}
         <span>
-          <FiClock /> {moment(p.end_date).diff(moment(p.start_date), 'months')}{' '}
+          <FiClock />{' '}
+          {moment(p.end_date || moment()).diff(moment(p.start_date), 'months')}{' '}
           months
         </span>
       </div>

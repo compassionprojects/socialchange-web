@@ -24,9 +24,9 @@ Projects.propTypes = {
 
 export async function getServerSideProps() {
   const res = await fetch(`${process.env.API_ROOT}/api/projects`);
-  const projects = await res.json();
+  const { projects, count } = await res.json();
 
   return {
-    props: { projects }, // will be passed to the page component as props
+    props: { projects, count }, // will be passed to the page component as props
   };
 }

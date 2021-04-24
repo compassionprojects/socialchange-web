@@ -9,7 +9,7 @@ export default function Category(props) {
     <div className="container py-5">
       <h1>{category.name}</h1>
       <Meta title={`${category.name} | NVC Social Change`} />
-      Projects under category {category.name}
+      {category.description}
       <ProjectsList projects={projects} />
     </div>
   );
@@ -26,11 +26,11 @@ export async function getServerSideProps(ctx) {
   const category = await cres.json();
 
   const pres = await fetch(
-    `${process.env.API_ROOT}/api/projects?category=${id}`
+    `${process.env.API_ROOT}/api/projects?category_id=${id}`
   );
-  const projects = await pres.json();
+  const { projects, count } = await pres.json();
 
   return {
-    props: { category, projects },
+    props: { category, projects, count },
   };
 }

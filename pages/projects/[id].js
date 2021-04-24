@@ -26,9 +26,8 @@ export default function Project(props) {
         <Meta title={`${p.title} | NVC Social Change`} />
 
         <div className="text-muted small">
-          <TimeAgo date={p.created_at} /> by{' '}
-          <Link href={`/users/${p.author.id}`}>{p.author.name}</Link> in{' '}
-          <Link href={`/categories/${p.category.id}`}>{p.category.name}</Link>
+          <TimeAgo date={p.created_at} /> by {p.author_name} in{' '}
+          <Link href={`/categories/${p.category_id}`}>{p.category_name}</Link>
         </div>
 
         <div className="row">
@@ -37,65 +36,80 @@ export default function Project(props) {
               <SectionTitle>Description</SectionTitle>
               <p>{p.description}</p>
             </section>
-            <section className="py-4">
-              <SectionTitle>
-                Intentions <small className="text-muted">of the project</small>
-              </SectionTitle>
-              <p>{p.intentions}</p>
-            </section>
+            {p.intentions && (
+              <section className="py-4">
+                <SectionTitle>
+                  Intentions{' '}
+                  <small className="text-muted">of the project</small>
+                </SectionTitle>
+                <p>{p.intentions}</p>
+              </section>
+            )}
           </div>
           <div className="col-lg-4 col-sm-12 pb-4">
             <div className="py-1 d-flex align-items-center">
               <FiList className="text-black-50" />
               <span className="ml-2">
                 <strong>Category</strong>:{' '}
-                <Link href={`/categories/${p.category.id}`}>
-                  {p.category.name}
+                <Link href={`/categories/${p.category_id}`}>
+                  {p.category_name}
                 </Link>
               </span>
             </div>
 
-            <div className="py-1 d-flex align-items-center">
-              <FiMapPin className="text-black-50" />
-              <span className="ml-2">
-                <strong>Location</strong>: {p.location.name}
-              </span>
-            </div>
+            {p.location && (
+              <div className="py-1 d-flex align-items-center">
+                <FiMapPin className="text-black-50" />
+                <span className="ml-2">
+                  <strong>Location</strong>: {p.location.name}
+                </span>
+              </div>
+            )}
 
-            <div className="py-1 d-flex align-items-center">
-              <FiUsers className="text-black-50" />
-              <span className="ml-2">
-                <strong># of people</strong>: {p.num_people}
-              </span>
-            </div>
+            {p.num_people && (
+              <div className="py-1 d-flex align-items-center">
+                <FiUsers className="text-black-50" />
+                <span className="ml-2">
+                  <strong># of people</strong>: {p.num_people}
+                </span>
+              </div>
+            )}
 
             <div className="py-1 d-flex align-items-center">
               <FiClock className="text-black-50" />
               <span className="ml-2">
                 <strong>Duration</strong>:{' '}
-                {moment(p.end_date).diff(moment(p.start_date), 'months')} months
+                {moment(p.end_date || moment()).diff(
+                  moment(p.start_date),
+                  'months'
+                )}{' '}
+                months
               </span>
             </div>
           </div>
         </div>
       </div>
 
-      <Map position={[p.location.lat, p.location.lng]} title={p.title} />
+      <Map position={JSON.parse(p.geo).coordinates.reverse()} title={p.title} />
 
       <div className="container pt-4 pb-5">
-        <section className="py-4">
-          <SectionTitle>
-            Outcomes <small className="text-muted">after using NVC</small>
-          </SectionTitle>
-          <p>{p.outcomes}</p>
-        </section>
-        <section className="py-4">
-          <SectionTitle>
-            Observed Societal Change{' '}
-            <small className="text-muted">as a result of this project</small>
-          </SectionTitle>
-          <p>{p.societal_change}</p>
-        </section>
+        {p.outcomes && (
+          <section className="py-4">
+            <SectionTitle>
+              Outcomes <small className="text-muted">after using NVC</small>
+            </SectionTitle>
+            <p>{p.outcomes}</p>
+          </section>
+        )}
+        {p.societal_change && (
+          <section className="py-4">
+            <SectionTitle>
+              Observed Societal Change{' '}
+              <small className="text-muted">as a result of this project</small>
+            </SectionTitle>
+            <p>{p.societal_change}</p>
+          </section>
+        )}
       </div>
     </>
   );
