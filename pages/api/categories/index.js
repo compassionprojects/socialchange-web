@@ -12,7 +12,6 @@ export default async (req, res) => {
         .from('projects')
         .innerJoin('categories', 'projects.category', 'categories.id')
         .as('count_projects'),
-      // '(select count(*) from projects p where p.category = categories.id) as count_projects',
     ])
     .from('categories');
 
