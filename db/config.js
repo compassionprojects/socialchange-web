@@ -1,4 +1,1 @@
-export const knex = require('knex')({
-  client: 'pg',
-  connection: process.env.DATABASE_URL,
-});
+export const knex = require('knex')(require('../knexfile'));
