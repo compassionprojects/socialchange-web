@@ -120,8 +120,8 @@ Project.propTypes = {
 };
 
 export async function getServerSideProps(ctx) {
-  const { id } = ctx.query;
-  const res = await fetch(`${process.env.API_ROOT}/api/projects/${id}`);
+  const { project_id } = ctx.query;
+  const res = await fetch(`${process.env.API_ROOT}/api/projects/${project_id}`);
   const project = await res.json();
 
   return {

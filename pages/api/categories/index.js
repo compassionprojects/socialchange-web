@@ -7,11 +7,9 @@ export default async (req, res) => {
     .select([
       'id',
       'name',
-      knex
-        .count('projects.id')
-        .from('projects')
-        .innerJoin('categories', 'projects.category', 'categories.id')
-        .as('count_projects'),
+      knex.raw(
+        '(select count(projects.id) from projects where projects.category = categories.id) as count_projects'
+      ),
     ])
     .from('categories');
 

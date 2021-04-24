@@ -9,12 +9,14 @@ export const defaultFilters = {
 };
 
 export default async (req, res) => {
-  const { page, per_page } = req.query;
+  const { page, per_page, category_id } = req.query;
   const limit = parseInt(per_page, 10) || 15;
   const offset = (parseInt(page, 10) - 1 || 0) * limit;
   const filter = {
     ...defaultFilters,
   };
+
+  if (category_id) filter.category = category_id;
 
   const projects = await knex
     .select([

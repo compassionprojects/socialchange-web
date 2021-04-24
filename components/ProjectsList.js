@@ -22,32 +22,7 @@ export default function ProjectsList(props) {
         <TimeAgo date={p.created_at} /> by {p.author_name} in{' '}
         <Link href={`/categories/${p.category_id}`}>{p.category_name}</Link>
       </div>
-      <div className="row py-2">
-        <div
-          className={classnames('col-sm-12', {
-            'col-lg-6': (p.image_urls || []).length > 0,
-          })}>
-          {truncate(p.description, 140)}
-        </div>
-        {(p.image_urls || []).length > 0 && (
-          <div className="col-sm-12 col-lg-6 my-lg-0 my-2">
-            {(p.image_urls || []).slice(0, 2).map((url, i) => (
-              <Link href={`/projects/${p.id}`} key={i}>
-                <img
-                  src={url}
-                  style={{ height: 75 }}
-                  className="img-fluid rounded mr-2"
-                />
-              </Link>
-            ))}
-            {(p.image_urls || []).length > 2 && (
-              <span className="h5 ml-3">
-                +{(p.image_urls || []).length - 2}
-              </span>
-            )}
-          </div>
-        )}
-      </div>
+      <div className="py-2">{truncate(p.description, 280)}</div>
       <div
         className="mt-2 mb-3 d-flex align-items-center text-muted"
         style={{ fontSize: '90%' }}>

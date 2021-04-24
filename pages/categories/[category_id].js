@@ -21,12 +21,14 @@ Category.propTypes = {
 };
 
 export async function getServerSideProps(ctx) {
-  const { id } = ctx.query;
-  const cres = await fetch(`${process.env.API_ROOT}/api/categories/${id}`);
+  const { category_id } = ctx.query;
+  const cres = await fetch(
+    `${process.env.API_ROOT}/api/categories/${category_id}`
+  );
   const category = await cres.json();
 
   const pres = await fetch(
-    `${process.env.API_ROOT}/api/projects?category_id=${id}`
+    `${process.env.API_ROOT}/api/projects?category_id=${category_id}`
   );
   const { projects, count } = await pres.json();
 

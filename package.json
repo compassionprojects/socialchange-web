@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p ${PORT-4000}",
     "build": "next build",
-    "start": "next start -p ${PORT-3000}",
+    "start": "next start -p ${PORT-4000}",
     "heroku-postbuild": "npm run build",
     "prestart": "knex migrate:latest"
   },
