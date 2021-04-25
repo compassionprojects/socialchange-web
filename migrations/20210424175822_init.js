@@ -96,7 +96,7 @@ exports.up = function (knex) {
 exports.down = function (knex) {
   return knex.schema
     .dropTable('followups')
-    .dropTable('discussions')
+    .dropTable('posts')
     .dropTable('topics')
     .dropTable('projects')
     .dropTable('project_status')
