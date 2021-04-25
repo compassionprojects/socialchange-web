@@ -7,6 +7,8 @@ export default function Meta({ title, description }) {
     <Head>
       <title>{title}</title>
       <meta description={description} />
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
   );
 }

@@ -13,7 +13,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="stylesheet" href="/css/bootstrap.min.css" />
         </Head>
-        <body>
+        <body className="d-flex flex-column h-100">
           <Main />
           <NextScript />
         </body>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'proptypes';
 import NProgress from 'nprogress';
+import { createGlobalStyle } from 'styled-components';
 import Router from 'next/router';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -14,9 +15,16 @@ Router.onRouteChangeError = () => NProgress.done();
 function App({ Component, pageProps }) {
   return (
     <>
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
+      <GlobalStyles />
+      <header>
+        <Header />
+      </header>
+      <main role="main" className="flex-shrink-0">
+        <Component {...pageProps} />
+      </main>
+      <footer className="py-5 border-top bg-light mt-auto">
+        <Footer />
+      </footer>
     </>
   );
 }
@@ -27,3 +35,14 @@ App.propTypes = {
   Component: PropTypes.node,
   pageProps: PropTypes.object,
 };
+
+const GlobalStyles = createGlobalStyle`
+  html {
+    height: 100%;
+  }
+  #__next {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+`;
