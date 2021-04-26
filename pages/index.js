@@ -22,25 +22,8 @@ export default function Home() {
                 who are passionate about social change and the impact of
                 Nonviolent Communication around us.
               </p>
-            </div>
-          </div>
-          <div className="row text-center my-4">
-            <div className="col-lg-3 offset-md-1 col-md-12 border-primary rounded mx-auto px-3 py-5 mt-4 bg-primary text-white">
-              <div>Do you have any NVC Social Change stories to share?</div>
-              <Link href="/projects/add" className="btn mt-4 btn-outline-light">
-                Get started
-              </Link>
-            </div>
-            <div className="col-lg-3 offset-md-1 col-md-12 border rounded mx-auto px-3 py-5 mt-4">
-              <div>Explore Social Change Stories</div>
               <Link href="/projects" className="btn btn-primary mt-4">
                 Explore
-              </Link>
-            </div>
-            <div className="col-lg-3 offset-md-1 col-md-12 border rounded mx-auto px-3 py-5 mt-4">
-              <div>Do you know anyone who has many stories to tell?</div>
-              <Link href="/" className="btn btn-outline-primary mt-4">
-                Spread the word
               </Link>
             </div>
           </div>
