@@ -17,7 +17,8 @@ exports.up = function (knex) {
     })
     .createTable('project_status', function (table) {
       table.increments('id').primary();
-      table.string('name', 30).unique().notNullable();
+      table.string('name', 30).notNullable();
+      table.string('code', 30).unique().notNullable();
       table.string('description', 255);
       table.timestamp('created_at', { useTz: true }).defaultTo(knex.fn.now());
       table.timestamp('updated_at', { useTz: true }).defaultTo(knex.fn.now());

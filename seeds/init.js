@@ -24,19 +24,23 @@ exports.seed = function (knex) {
           return knex('project_status').insert([
             {
               id: 1,
-              name: 'draft',
+              code: 'draft',
+              name: 'Draft',
             },
             {
               id: 2,
-              name: 'published',
+              code: 'published',
+              name: 'Published',
             },
             {
               id: 3,
-              name: 'under_review',
+              code: 'review',
+              name: 'Under Review',
             },
             {
               id: 4,
-              name: 'archived',
+              code: 'archived',
+              name: 'Archived',
             },
           ]);
         })
