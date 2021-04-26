@@ -1,11 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { knex } from '../../../db/config';
-const knexPostgis = require('knex-postgis');
-const st = knexPostgis(knex);
 
 export const defaultFilters = {
-  'project_status.name': 'published', // only fetch 'published' projects
+  'project_status.code': 'published', // only fetch 'published' projects
 };
 
 export default async (req, res) => {
@@ -23,14 +21,10 @@ export default async (req, res) => {
       'projects.id',
       'title',
       'projects.description',
-      'intentions',
-      'outcomes',
-      'societal_change',
       'categories.name as category_name',
       'categories.id as category_id',
       'users.name as author_name',
       'projects.created_at',
-      st.asGeoJSON('geo'),
       'num_people',
       'start_date',
       'end_date',
