@@ -1,12 +1,20 @@
 import React from 'react';
 import PropType from 'proptypes';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import Link from 'components/Link';
 import Meta from 'components/Meta';
 import ProjectsList from 'components/ProjectsList';
 
 export default function Category(props) {
   const { category, projects } = props;
   return (
-    <div className="container py-5">
+    <div className="container pb-5">
+      <Breadcrumb className="my-4" listClassName="bg-light">
+        <BreadcrumbItem>
+          <Link href="/projects">Projects</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem active>{category.name}</BreadcrumbItem>
+      </Breadcrumb>
       <h1>{category.name}</h1>
       <Meta title={`${category.name} | NVC Social Change`} />
       {category.description}

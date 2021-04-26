@@ -2,6 +2,7 @@ import React from 'react';
 import PropType from 'proptypes';
 import moment from 'moment';
 import styled from 'styled-components';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import Meta from 'components/Meta';
 import Link from 'components/Link';
 import TimeAgo from 'react-timeago';
@@ -20,7 +21,14 @@ export default function Project(props) {
   const { project: p } = props;
   return (
     <>
-      <div className="container pt-5">
+      <div className="container">
+        <Breadcrumb className="my-4" listClassName="bg-light">
+          <BreadcrumbItem>
+            <Link href="/projects">Projects</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>{p.title}</BreadcrumbItem>
+        </Breadcrumb>
+
         <h1>{p.title}</h1>
 
         <Meta title={`${p.title} | NVC Social Change`} />

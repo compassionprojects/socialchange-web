@@ -12,7 +12,9 @@ export default function Categories(props) {
 
       {categories.map((c, i) => (
         <span key={c.id}>
-          <Link href={`/categories/${c.id}`}>{c.name}</Link>
+          <Link href={`/categories/${c.id}`}>
+            {c.name} ({c.count_projects})
+          </Link>
           {i !== categories.length - 1 && ','}{' '}
         </span>
       ))}
