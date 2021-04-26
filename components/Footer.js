@@ -3,9 +3,9 @@ import Link from 'components/Link';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 export default function Footer() {
-  const listItemClass = 'mt-2';
+  const listItemClass = 'mt-3 mt-sm-2';
   return (
-    <div className="container">
+    <div className="container py-3">
       <div className="row">
         <div className="col-lg-3 col-sm-6 col-12">
           <div className="text-black-50 border-bottom pb-3">
