@@ -9,7 +9,7 @@ export default function Category(props) {
   const { category, projects } = props;
   return (
     <div className="container pb-5">
-      <Breadcrumb className="my-4" listClassName="bg-light">
+      <Breadcrumb className="my-4 pt-1" listClassName="bg-light">
         <BreadcrumbItem>
           <Link href="/projects">Projects</Link>
         </BreadcrumbItem>

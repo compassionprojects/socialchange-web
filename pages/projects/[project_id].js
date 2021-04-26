@@ -22,7 +22,7 @@ export default function Project(props) {
   return (
     <>
       <div className="container">
-        <Breadcrumb className="my-4" listClassName="bg-light">
+        <Breadcrumb className="my-4 pt-1" listClassName="bg-light">
           <BreadcrumbItem>
             <Link href="/projects">Projects</Link>
           </BreadcrumbItem>

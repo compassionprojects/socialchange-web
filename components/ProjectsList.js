@@ -15,8 +15,8 @@ export default function ProjectsList(props) {
         'border-top': idx !== 0,
       })}
       key={p.id}>
-      <Link href={`/projects/${p.id}`}>
-        <h2 className="d-inline-block">{p.title}</h2>
+      <Link href={`/projects/${p.id}`} className="text-reset">
+        <span className="h3 d-inline-block">{p.title}</span>
       </Link>
       <div className="text-muted small">
         <TimeAgo date={p.created_at} /> by {p.author_name} in{' '}
