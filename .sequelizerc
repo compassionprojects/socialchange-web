@@ -1,0 +1,12 @@
+const { resolve } = require('path');
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({ path: resolve(process.cwd(), '.env.local') });
+}
+
+module.exports = {
+  'config': resolve('config', 'database.js'),
+  'models-path': resolve('models'),
+  'seeders-path': resolve('seeders'),
+  'migrations-path': resolve('migrations')
+};
