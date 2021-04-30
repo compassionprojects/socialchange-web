@@ -18,10 +18,10 @@ exports.seed = function (knex) {
       ])
     )
     .then(() =>
-      knex('project_status')
+      knex('project_statuses')
         .del()
         .then(function () {
-          return knex('project_status').insert([
+          return knex('project_statuses').insert([
             {
               id: 1,
               code: 'draft',
@@ -84,8 +84,8 @@ exports.seed = function (knex) {
               has_discussions: true,
               created_by: 1,
               updated_by: 1,
-              category: 1,
-              status: 2,
+              category_id: 1,
+              project_status_id: 2,
             },
           ]);
         })

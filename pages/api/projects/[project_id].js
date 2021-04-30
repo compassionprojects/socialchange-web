@@ -21,7 +21,7 @@ export default async (req, res) => {
       'outcomes',
       'societal_change',
       'categories.name as category_name',
-      'categories.id as category_id',
+      'category_id',
       'users.name as author_name',
       'projects.created_at',
       st.asGeoJSON('geo'),
@@ -29,12 +29,16 @@ export default async (req, res) => {
       'start_date',
       'end_date',
       'has_discussions',
-      'status',
+      'project_status_id',
     ])
     .from('projects')
-    .innerJoin('categories', 'projects.category', 'categories.id')
+    .innerJoin('categories', 'projects.category_id', 'categories.id')
     .innerJoin('users', 'projects.created_by', 'users.id')
-    .innerJoin('project_status', 'projects.status', 'project_status.id')
+    .innerJoin(
+      'project_statuses',
+      'projects.project_status_id',
+      'project_statuses.id'
+    )
     .where(filter);
 
   res.status(200).json(project);

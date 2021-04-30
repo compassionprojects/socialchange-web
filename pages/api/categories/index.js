@@ -11,12 +11,12 @@ export default async (req, res) => {
         `(
           select count(projects.id)
           from projects
-          where projects.category = categories.id
+          where projects.category_id = categories.id
         ) as count_projects`
       ),
     ])
     .from('categories')
-    .innerJoin('projects', 'projects.category', 'categories.id')
+    .innerJoin('projects', 'projects.category_id', 'categories.id')
     .groupBy('categories.id')
     .orderBy('categories.name')
     .havingRaw('count(categories.id) > 0');

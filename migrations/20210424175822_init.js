@@ -15,7 +15,7 @@ exports.up = function (knex) {
       table.timestamp('created_at', { useTz: true }).defaultTo(knex.fn.now());
       table.timestamp('updated_at', { useTz: true }).defaultTo(knex.fn.now());
     })
-    .createTable('project_status', function (table) {
+    .createTable('project_statuses', function (table) {
       table.increments('id').primary();
       table.string('name', 30).notNullable();
       table.string('code', 30).unique().notNullable();
@@ -30,8 +30,8 @@ exports.up = function (knex) {
       table.text('intentions');
       table.text('outcomes');
       table.text('societal_change');
-      table.integer('category').unsigned().notNullable();
-      table.integer('status').unsigned().notNullable();
+      table.integer('category_id').unsigned().notNullable();
+      table.integer('project_status_id').unsigned().notNullable();
       table.timestamp('created_at', { useTz: true }).defaultTo(knex.fn.now());
       table.timestamp('updated_at', { useTz: true }).defaultTo(knex.fn.now());
       table.date('start_date');
@@ -42,8 +42,11 @@ exports.up = function (knex) {
       table.integer('created_by').unsigned().notNullable();
       table.integer('updated_by').unsigned().notNullable();
 
-      table.foreign('category').references('id').inTable('categories');
-      table.foreign('status').references('id').inTable('project_status');
+      table.foreign('category_id').references('id').inTable('categories');
+      table
+        .foreign('project_status_id')
+        .references('id')
+        .inTable('project_statuses');
       table.foreign('created_by').references('id').inTable('users');
       table.foreign('updated_by').references('id').inTable('users');
       table.index('geo', 'projects_geo_idx', 'gist');
@@ -100,7 +103,7 @@ exports.down = function (knex) {
     .dropTable('posts')
     .dropTable('topics')
     .dropTable('projects')
-    .dropTable('project_status')
+    .dropTable('project_statuses')
     .dropTable('categories')
     .dropTable('users');
 };

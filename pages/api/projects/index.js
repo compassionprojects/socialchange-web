@@ -3,7 +3,7 @@
 import { knex } from '../../../db/config';
 
 export const defaultFilters = {
-  'project_status.code': 'published', // only fetch 'published' projects
+  'project_statuses.code': 'published', // only fetch 'published' projects
 };
 
 export default async (req, res) => {
@@ -14,7 +14,7 @@ export default async (req, res) => {
     ...defaultFilters,
   };
 
-  if (category_id) filter.category = category_id;
+  if (category_id) filter.category_id = category_id;
 
   const projects = await knex
     .select([
@@ -22,25 +22,33 @@ export default async (req, res) => {
       'title',
       'projects.description',
       'categories.name as category_name',
-      'categories.id as category_id',
+      'category_id',
       'users.name as author_name',
       'projects.created_at',
       'num_people',
       'start_date',
       'end_date',
       'has_discussions',
-      'status',
+      'project_status_id',
     ])
     .from('projects')
-    .innerJoin('categories', 'projects.category', 'categories.id')
+    .innerJoin('categories', 'projects.category_id', 'categories.id')
     .innerJoin('users', 'projects.created_by', 'users.id')
-    .innerJoin('project_status', 'projects.status', 'project_status.id')
+    .innerJoin(
+      'project_statuses',
+      'projects.project_status_id',
+      'project_statuses.id'
+    )
     .where(filter)
     .limit(limit)
     .offset(offset);
 
   const [count] = await knex('projects')
-    .innerJoin('project_status', 'projects.status', 'project_status.id')
+    .innerJoin(
+      'project_statuses',
+      'projects.project_status_id',
+      'project_statuses.id'
+    )
     .count('projects.id')
     .where(filter);
 
