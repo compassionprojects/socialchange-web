@@ -11,6 +11,11 @@ export default function SignIn({ callbackUrl }) {
   const [session, loading] = useSession();
   const router = useRouter();
   const validEmail = email.length > 0 && validateEmail(email);
+  const submit = (e) => {
+    e.preventDefault();
+    if (!validEmail) return false;
+    signIn('email', { email, callbackUrl });
+  };
 
   useEffect(() => {
     if (!loading && session) return router.push('/');
@@ -21,7 +26,7 @@ export default function SignIn({ callbackUrl }) {
     <div className="container py-5">
       <Meta title={'Sign in | NVC Social Change'} />
 
-      <Form>
+      <Form onSubmit={submit}>
         <Row form>
           {visible && (
             <Col md={5} className="mx-auto">
@@ -43,7 +48,7 @@ export default function SignIn({ callbackUrl }) {
               <Button
                 color={validEmail ? 'primary' : 'secondary'}
                 disabled={!validEmail}
-                onClick={() => signIn('email', { email, callbackUrl })}>
+                onClick={submit}>
                 Sign in
               </Button>
             </Col>
