@@ -32,6 +32,13 @@ export default function Footer() {
                 </Link>
               </li>
             )}
+            {!loading && session && (
+              <li className={listItemClass}>
+                <Link className="text-reset" href="/projects/add">
+                  Add project
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
 

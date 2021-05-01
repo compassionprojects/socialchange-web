@@ -14,7 +14,7 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import Link from 'components/Link';
-import { FiArrowUpRight } from 'react-icons/fi';
+import { FiArrowUpRight, FiChevronDown } from 'react-icons/fi';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,8 +60,8 @@ function Header() {
             </NavItem>
             {!loading && session && (
               <UncontrolledDropdown nav inNavbar className="ml-md-3">
-                <DropdownToggle nav caret>
-                  Account
+                <DropdownToggle nav>
+                  Account <FiChevronDown />
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem disabled>{session.user.email}</DropdownItem>

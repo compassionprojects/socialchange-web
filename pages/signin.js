@@ -41,7 +41,7 @@ export default function SignIn({ callbackUrl }) {
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="with a placeholder"
+                  placeholder="Your email address"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </FormGroup>
