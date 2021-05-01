@@ -84,4 +84,6 @@ export default NextAuth({
       },
     }
   ),
+
+  theme: 'light',
 });

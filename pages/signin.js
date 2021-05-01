@@ -1,54 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Row, Col, Input, FormGroup, Label } from 'reactstrap';
-// import PropType from 'proptypes';
+import PropType from 'proptypes';
+import { useRouter } from 'next/router';
 import Meta from 'components/Meta';
-import { signIn } from 'next-auth/client';
+import { signIn, useSession } from 'next-auth/client';
 
-export default function SignIn() {
-  // const { user, projects } = props;
+export default function SignIn({ callbackUrl }) {
   const [email, setEmail] = useState('');
+  const [visible, setVisible] = useState(false);
+  const [session, loading] = useSession();
+  const router = useRouter();
+  const validEmail = email.length > 0 && validateEmail(email);
+
+  useEffect(() => {
+    if (!loading && session) return router.push('/');
+    setVisible(true);
+  });
+
   return (
     <div className="container py-5">
-      <h1>Sign in</h1>
       <Meta title={'Sign in | NVC Social Change'} />
-      Sign-in in order to add social change projects where NVC has been a part
-      of
+
       <Form>
         <Row form>
-          <Col md={6}>
-            <FormGroup>
-              <Label for="email">Email</Label>
-              <Input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="with a placeholder"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </FormGroup>
-          </Col>
+          {visible && (
+            <Col md={5} className="mx-auto">
+              <FormGroup>
+                <h1>Sign in</h1>
+                <div className="mb-5 mt-3">
+                  Sign-in in order to add social change projects where NVC has
+                  been a part of
+                </div>
+                <Label for="email">Email</Label>
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="with a placeholder"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </FormGroup>
+              <Button
+                color={validEmail ? 'primary' : 'secondary'}
+                disabled={!validEmail}
+                onClick={() => signIn('email', { email, callbackUrl })}>
+                Sign in
+              </Button>
+            </Col>
+          )}
         </Row>
-        <Button onClick={() => signIn('email', { email })}>Sign in</Button>
       </Form>
     </div>
   );
 }
 
-/* Users.propTypes = {
-  user: PropType.object,
-  projects: PropType.array,
+SignIn.propTypes = {
+  callbackUrl: PropType.string,
 };
 
-export async function getServerSideProps(ctx) {
-  const { id } = ctx.query;
-  const ures = await fetch(`${process.env.API_ROOT}/api/users/${id}`);
-  const user = await ures.json();
-
-  const pres = await fetch(`${process.env.API_ROOT}/api/projects?user=${id}`);
-  const projects = await pres.json();
-
+export async function getServerSideProps() {
   return {
-    props: { user, projects },
+    props: { callbackUrl: process.env.NEXTAUTH_URL },
   };
 }
- */
+
+function validateEmail(email) {
+  const re = /.+@.+\..+/;
+  return re.test(email);
+}

@@ -1,9 +1,12 @@
 import React from 'react';
-import Link from 'components/Link';
+import { useSession } from 'next-auth/client';
 import { FiArrowUpRight } from 'react-icons/fi';
+import Link from 'components/Link';
 
 export default function Footer() {
+  const [session, loading] = useSession();
   const listItemClass = 'mt-3 mt-sm-2';
+
   return (
     <div className="container py-3">
       <div className="row">
@@ -22,6 +25,13 @@ export default function Footer() {
                 Projects
               </Link>
             </li>
+            {!loading && !session && (
+              <li className={listItemClass}>
+                <Link className="text-reset" href="/signin">
+                  Sign in
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
 

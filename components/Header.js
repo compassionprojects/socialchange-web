@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSession, signOut } from 'next-auth/client';
 import {
   Collapse,
   Navbar,
@@ -7,13 +8,17 @@ import {
   Nav,
   NavItem,
   NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from 'reactstrap';
 import Link from 'components/Link';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [session, loading] = useSession();
   const toggle = () => setIsOpen(!isOpen);
 
   return (
@@ -53,6 +58,17 @@ function Header() {
                 Donate <FiArrowUpRight />
               </a>
             </NavItem>
+            {!loading && session && (
+              <UncontrolledDropdown nav inNavbar className="ml-md-3">
+                <DropdownToggle nav caret>
+                  Account
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem disabled>{session.user.email}</DropdownItem>
+                  <DropdownItem onClick={signOut}>Sign out</DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            )}
           </Nav>
         </Collapse>
       </div>
