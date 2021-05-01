@@ -1,9 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { knex } from '../../../db/config';
+import db from '../../../db';
 import { defaultFilters } from './index';
 const knexPostgis = require('knex-postgis');
-const st = knexPostgis(knex);
+const st = knexPostgis(db);
 
 export default async (req, res) => {
   const { project_id } = req.query;
@@ -12,7 +12,7 @@ export default async (req, res) => {
     'projects.id': project_id,
   };
 
-  const [project] = await knex
+  const [project] = await db
     .select([
       'projects.id',
       'title',

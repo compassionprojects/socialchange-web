@@ -1,13 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { knex } from '../../../db/config';
+import db from '../../../db';
 
 export default async (req, res) => {
-  const categories = await knex
+  const categories = await db
     .select([
       'categories.id',
       'categories.name',
-      knex.raw(
+      db.raw(
         `(
           select count(projects.id)
           from projects
