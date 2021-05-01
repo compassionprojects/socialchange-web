@@ -1,5 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
 import db from '../../../db';
 import { defaultFilters } from './index';
 const knexPostgis = require('knex-postgis');
