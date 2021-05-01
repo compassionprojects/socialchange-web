@@ -143,29 +143,6 @@ exports.up = function (knex) {
         .references('id')
         .inTable('users');
     })
-    .createTable('accounts', function (table) {
-      table.increments('id').primary();
-      table.string('compound_id').notNullable();
-      table
-        .integer('user_id')
-        .unsigned()
-        .notNullable()
-        .references('id')
-        .inTable('users');
-      table.string('provider_type').notNullable();
-      table.string('provider_id').notNullable();
-      table.string('provider_account_id').notNullable();
-      table.text('refresh_token');
-      table.text('access_token');
-      table.timestamp('access_token_expires', { useTz: true });
-      table.timestamp('created_at', { useTz: true }).defaultTo(knex.fn.now());
-      table.timestamp('updated_at', { useTz: true }).defaultTo(knex.fn.now());
-
-      table.unique('compound_id', 'accounts_compount_id');
-      table.index('provider_account_id', 'accounts_provider_account_id');
-      table.index('provider_id', 'accounts_provider_id');
-      table.index('user_id', 'accounts_user_id');
-    })
     .createTable('verification_requests', function (table) {
       table.increments('id').primary();
       table.string('identifier').notNullable();
@@ -193,7 +170,6 @@ exports.down = function (knex) {
     .dropTable('projects')
     .dropTable('project_statuses')
     .dropTable('categories')
-    .dropTable('accounts')
     .dropTable('sessions')
     .dropTable('users')
     .dropTable('verification_requests');
