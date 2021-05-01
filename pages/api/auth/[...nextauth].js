@@ -38,14 +38,11 @@ export default NextAuth({
     jwt: true,
   },
 
+  secret: process.env.SECRET,
+
   jwt: {
-    secret: process.env.SECRET,
-    signingKey: JSON.stringify({
-      alg: 'HS512',
-      k: process.env.SIGNING_KEY,
-      key_ops: ['sign', 'verify'],
-      kty: 'oct',
-    }),
+    secret: process.env.JWT_SECRET,
+    signingKey: process.env.JWT_SIGNING_KEY,
     verificationOptions: {
       algorithms: ['HS512'],
     },
@@ -68,7 +65,6 @@ export default NextAuth({
         console.log(url);
       },
     }),
-    // ...add more providers here
   ],
 
   // A database is optional, but required to persist accounts in a database
