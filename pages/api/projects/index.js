@@ -39,6 +39,7 @@ export default async (req, res) => {
       'project_statuses.id'
     )
     .where(filter)
+    .orderBy('created_at', 'desc')
     .limit(limit)
     .offset(offset);
 
