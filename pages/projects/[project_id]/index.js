@@ -34,7 +34,8 @@ export default function Project(props) {
         <Meta title={`${p.title} | NVC Social Change`} />
 
         <div className="text-muted small">
-          <TimeAgo date={p.created_at} /> by {p.author_name} in{' '}
+          <TimeAgo date={p.created_at} /> by{' '}
+          {p.author_name || `User#${p.author_id}`} in{' '}
           <Link href={`/categories/${p.category_id}`}>{p.category_name}</Link>
         </div>
 
@@ -98,7 +99,12 @@ export default function Project(props) {
         </div>
       </div>
 
-      <Map position={JSON.parse(p.geo).coordinates.reverse()} title={p.title} />
+      {p.geo && (
+        <Map
+          position={JSON.parse(p.geo).coordinates.reverse()}
+          title={p.title}
+        />
+      )}
 
       <div className="container pt-4 pb-5">
         {p.outcomes && (

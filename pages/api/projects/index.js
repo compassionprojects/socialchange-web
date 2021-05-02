@@ -22,6 +22,7 @@ export default async (req, res) => {
       'categories.name as category_name',
       'category_id',
       'users.name as author_name',
+      'users.id as author_id',
       'projects.created_at',
       'num_people',
       'start_date',

@@ -25,7 +25,7 @@ function Header() {
     <Navbar
       color="light"
       light
-      expand="md"
+      expand="lg"
       className="py-4 bg-white border-bottom">
       <div className="container">
         <NavbarBrand href="/" tag={Link}>
