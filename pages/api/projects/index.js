@@ -1,6 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
-import { knex } from '../../../db/config';
+import db from '../../../db';
 
 export const defaultFilters = {
   'project_statuses.code': 'published', // only fetch 'published' projects
@@ -16,7 +14,7 @@ export default async (req, res) => {
 
   if (category_id) filter.category_id = category_id;
 
-  const projects = await knex
+  const projects = await db
     .select([
       'projects.id',
       'title',
@@ -43,7 +41,7 @@ export default async (req, res) => {
     .limit(limit)
     .offset(offset);
 
-  const [count] = await knex('projects')
+  const [count] = await db('projects')
     .innerJoin(
       'project_statuses',
       'projects.project_status_id',

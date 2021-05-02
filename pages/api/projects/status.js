@@ -1,7 +1,7 @@
-import { knex } from '../../../db/config';
+import db from '../../../db';
 
 export default async (req, res) => {
-  const project_statuses = await knex
+  const project_statuses = await db
     .select('id', 'name')
     .from('project_statuses');
 

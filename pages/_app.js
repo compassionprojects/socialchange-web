@@ -3,6 +3,7 @@ import PropTypes from 'proptypes';
 import NProgress from 'nprogress';
 import { createGlobalStyle } from 'styled-components';
 import Router from 'next/router';
+import { Provider } from 'next-auth/client';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import 'nprogress/nprogress.css';
@@ -14,7 +15,7 @@ Router.onRouteChangeError = () => NProgress.done();
 
 function App({ Component, pageProps }) {
   return (
-    <>
+    <Provider session={pageProps.session}>
       <GlobalStyles />
       <header>
         <Header />
@@ -25,7 +26,7 @@ function App({ Component, pageProps }) {
       <footer className="py-5 border-top bg-light mt-auto">
         <Footer />
       </footer>
-    </>
+    </Provider>
   );
 }
 
