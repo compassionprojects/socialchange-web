@@ -2,8 +2,10 @@ import React from 'react';
 import Link from 'components/Link';
 import Meta from 'components/Meta';
 import { FiArrowUpRight } from 'react-icons/fi';
+import { useSession } from 'next-auth/client';
 
 export default function Home() {
+  const [session, loading] = useSession();
   return (
     <>
       <Meta
@@ -22,9 +24,16 @@ export default function Home() {
                 who are passionate about social change and the impact of
                 Nonviolent Communication around us.
               </p>
-              <Link href="/projects" className="btn btn-primary mt-4">
-                Explore
-              </Link>
+              <div className="mt-4">
+                <Link href="/projects" className="btn btn-primary">
+                  Explore
+                </Link>{' '}
+                {session && !loading && (
+                  <Link href="/projects/add" className="btn btn-link">
+                    Add project
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </section>

@@ -1,15 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'proptypes';
 import styled from 'styled-components';
 import { Form, Field } from 'react-final-form';
 import { Button, FormGroup as _FormGroup, Label, FormText } from 'reactstrap';
 import { CountryDropdown } from 'react-country-region-selector';
 import DatePicker from 'react-datepicker';
+import opencage from 'opencage-api-client';
+import { OnChange } from 'react-final-form-listeners';
+import { mapCountry } from '../lib';
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(import('components/Map'), {
+  ssr: false,
+  loading: function Loading() {
+    return <div className="text-center py-5 my-5">Loading...</div>;
+  },
+});
+
+// @todo use AutoSave with localStorage
+// https://codesandbox.io/s/5w4yrpyo7k?file=/AutoSave.js
 
 export default function ProjectAddEditForm({ onSubmit, project, categories }) {
+  const [geography, setGeo] = useState(null);
+  const updateCountry = async (value) => {
+    const { results } = await opencage.geocode({
+      q: mapCountry[value],
+      key: process.env.NEXT_PUBLIC_OPENCAGE_API_KEY,
+    });
+    setGeo({
+      type: 'Point',
+      coordinates: [results[0].geometry.lng, results[0].geometry.lat],
+    });
+  };
+  const updateGeo = ({ lat, lng }) => {
+    setGeo({
+      type: 'Point',
+      coordinates: [lng, lat],
+    });
+  };
+
   return (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={(p) => onSubmit({ ...p, geo: geography })}
       initialValues={{ ...project }}
       validate={(values) => {
         const errors = {};
@@ -20,12 +52,6 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
       }}
       render={({ handleSubmit, form, submitting, pristine, values }) => (
         <form onSubmit={handleSubmit}>
-          {/* <FormSpy
-            render={(props) => {
-              @todo store form values in localStorage
-            }}
-          /> */}
-
           <FormGroup>
             <Label for="title">Title</Label>
             <Field
@@ -78,10 +104,19 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                   required
                   className="form-control"
                   id="country"
+                  defaultOptionLabel="-- Select Country --"
                 />
               </FormGroup>
             )}
           </Field>
+          <OnChange name="country">{updateCountry}</OnChange>
+          {geography && (
+            <Map
+              position={geography.coordinates.reverse()}
+              onEdit={updateGeo}
+              zoom={10}
+            />
+          )}
 
           <Field name="category_id">
             {({ input }) => (

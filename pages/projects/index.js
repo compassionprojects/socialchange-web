@@ -44,7 +44,9 @@ export async function getServerSideProps(ctx) {
   const pres = await fetch(`${process.env.API_ROOT}/api/projects?${query}`);
   const { projects, count } = await pres.json();
 
-  const cres = await fetch(`${process.env.API_ROOT}/api/categories?${query}`);
+  const cres = await fetch(
+    `${process.env.API_ROOT}/api/categories/count?${query}`
+  );
   const categories = await cres.json();
 
   return {

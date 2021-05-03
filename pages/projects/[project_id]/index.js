@@ -8,6 +8,7 @@ import Link from 'components/Link';
 import TimeAgo from 'react-timeago';
 import { FiList, FiUsers, FiClock, FiMapPin } from 'react-icons/fi';
 import dynamic from 'next/dynamic';
+import { mapCountry } from '../../../lib';
 import 'leaflet/dist/leaflet.css';
 
 const Map = dynamic(import('components/Map'), {
@@ -66,11 +67,11 @@ export default function Project(props) {
               </span>
             </div>
 
-            {p.location && (
+            {p.country && (
               <div className="py-1 d-flex align-items-center">
                 <FiMapPin className="text-black-50" />
                 <span className="ml-2">
-                  <strong>Location</strong>: {p.location.name}
+                  <strong>Country</strong>: {mapCountry[p.country]}
                 </span>
               </div>
             )}

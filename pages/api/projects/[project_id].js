@@ -20,6 +20,7 @@ export default async (req, res) => {
       'societal_change',
       'categories.name as category_name',
       'category_id',
+      'country',
       'users.name as author_name',
       'users.id as author_id',
       'projects.created_at',

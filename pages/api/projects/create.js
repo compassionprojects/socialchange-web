@@ -1,5 +1,8 @@
 import db from '../../../db';
 import jwt from 'next-auth/jwt';
+import knexPostgis from 'knex-postgis';
+
+const st = knexPostgis(db);
 const secret = process.env.JWT_SECRET;
 const signingKey = process.env.JWT_SIGNING_KEY;
 
@@ -17,6 +20,8 @@ export default async (req, res) => {
     .select(['id'])
     .where({ email: token.email });
 
+  // @todo if not author, throw error
+
   const [project_status] = await db('project_statuses')
     .select(['id'])
     .where({ code: 'published' });
@@ -31,6 +36,8 @@ export default async (req, res) => {
     end_date,
     category_id,
     has_discussions,
+    geo,
+    country,
   } = req.body;
 
   const [project] = await db('projects')
@@ -42,6 +49,8 @@ export default async (req, res) => {
       societal_change,
       start_date,
       end_date,
+      geo: geo ? st.geomFromGeoJSON(geo) : null,
+      country,
       category_id,
       has_discussions,
       project_status_id: project_status.id,

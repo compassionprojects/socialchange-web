@@ -5,6 +5,7 @@ import { useSession, getSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import ProjectAddEditForm from 'components/ProjectAddEditForm';
 import 'react-datepicker/dist/react-datepicker.css';
+import 'leaflet/dist/leaflet.css';
 
 export default function AddProject({ categories }) {
   const [session] = useSession();

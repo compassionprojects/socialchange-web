@@ -1,4 +1,6 @@
 import db from '../../../db';
+const knexPostgis = require('knex-postgis');
+const st = knexPostgis(db);
 
 export const defaultFilters = {
   'project_statuses.code': 'published', // only fetch 'published' projects
@@ -21,6 +23,8 @@ export default async (req, res) => {
       'projects.description',
       'categories.name as category_name',
       'category_id',
+      'country',
+      st.asGeoJSON('geo'),
       'users.name as author_name',
       'users.id as author_id',
       'projects.created_at',

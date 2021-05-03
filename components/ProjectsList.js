@@ -6,6 +6,7 @@ import truncate from 'truncate';
 import Link from 'components/Link';
 import { FiMapPin, FiClock } from 'react-icons/fi';
 import moment from 'moment';
+import { mapCountry } from '../lib';
 
 export default function ProjectsList(props) {
   const { projects } = props;
@@ -27,9 +28,9 @@ export default function ProjectsList(props) {
       <div
         className="mt-2 mb-3 d-flex align-items-center text-muted"
         style={{ fontSize: '90%' }}>
-        {p.location && (
+        {p.country && (
           <span className="mr-4">
-            <FiMapPin /> {p.location.name}
+            <FiMapPin /> {mapCountry[p.country]}
           </span>
         )}
         <span>
