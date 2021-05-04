@@ -27,6 +27,9 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
     project.geo ? JSON.parse(project.geo) : null
   );
   const updateCountry = async (value) => {
+    if (!value) {
+      return setGeo(null);
+    }
     const { results } = await opencage.geocode({
       q: mapCountry[value],
       key: process.env.NEXT_PUBLIC_OPENCAGE_API_KEY,
@@ -118,11 +121,17 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
           </Field>
           <OnChange name="country">{updateCountry}</OnChange>
           {geography && (
-            <Map
-              position={geography.coordinates}
-              onEdit={updateGeo}
-              zoom={10}
-            />
+            <>
+              <div className="text-muted text-center small pb-2">
+                You can move the marker to adjust the location (it does not need
+                to be perfect)
+              </div>
+              <Map
+                position={geography.coordinates}
+                onEdit={updateGeo}
+                zoom={5}
+              />
+            </>
           )}
           <Field name="category_id">
             {({ input }) => (
