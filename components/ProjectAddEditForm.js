@@ -7,6 +7,7 @@ import { CountryDropdown } from 'react-country-region-selector';
 import DatePicker from 'react-datepicker';
 import opencage from 'opencage-api-client';
 import { OnChange } from 'react-final-form-listeners';
+import moment from 'moment';
 import { mapCountry } from '../lib';
 import dynamic from 'next/dynamic';
 
@@ -31,19 +32,25 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
     });
     setGeo({
       type: 'Point',
-      coordinates: [results[0].geometry.lng, results[0].geometry.lat],
+      coordinates: [results[0].geometry.lat, results[0].geometry.lng],
     });
   };
   const updateGeo = ({ lat, lng }) => {
     setGeo({
       type: 'Point',
-      coordinates: [lng, lat],
+      coordinates: [lat, lng],
     });
   };
 
   return (
     <Form
-      onSubmit={(p) => onSubmit({ ...p, geo: geography })}
+      onSubmit={(p) => {
+        onSubmit({
+          ...p,
+          geo: geography,
+          start_date: moment(p.start_date).toISOString(),
+        });
+      }}
       initialValues={{ ...project }}
       validate={(values) => {
         const errors = {};
@@ -52,7 +59,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
         if (!values.start_date) errors.start_date = 'Required';
         return errors;
       }}
-      render={({ handleSubmit, form, submitting, pristine, values }) => (
+      render={({ handleSubmit, form, submitting, values }) => (
         <form onSubmit={handleSubmit}>
           <FormGroup>
             <Label for="title">Title</Label>
@@ -114,7 +121,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
           <OnChange name="country">{updateCountry}</OnChange>
           {geography && (
             <Map
-              position={geography.coordinates.reverse()}
+              position={geography.coordinates}
               onEdit={updateGeo}
               zoom={10}
             />
@@ -140,15 +147,23 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             )}
           </Field>
 
-          {/* <Field name="start_date">
+          <Field name="start_date">
             {({ input }) => (
               <FormGroup>
                 <Label for="start_date">Start Date</Label>
                 <div>
                   <DatePicker
-                    selected={values.start_date || new Date()}
+                    selected={moment(input.value).toDate()}
                     maxDate={new Date()}
-                    {...input}
+                    onChange={(date) => {
+                      // On Change, you should use final-form
+                      // Field Input prop to change the value
+                      if (moment(date).isValid()) {
+                        input.onChange(moment(date));
+                      } else {
+                        input.onChange(null);
+                      }
+                    }}
                     required
                     showYearDropdown
                     dateFormat="dd/MM/yyyy"
@@ -159,7 +174,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                 </div>
               </FormGroup>
             )}
-          </Field> */}
+          </Field>
 
           <Field name="end_date">
             {({ input }) => (
@@ -167,10 +182,18 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                 <Label for="end_date">End Date</Label>
                 <div>
                   <DatePicker
-                    selected={values.end_date || new Date()}
+                    selected={moment(input.value).toDate()}
                     maxDate={new Date()}
-                    minDate={values.start_date}
-                    {...input}
+                    minDate={moment(values.start_date).toDate()}
+                    onChange={(date) => {
+                      // On Change, you should use final-form
+                      // Field Input prop to change the value
+                      if (moment(date).isValid()) {
+                        input.onChange(moment(date));
+                      } else {
+                        input.onChange(null);
+                      }
+                    }}
                     showYearDropdown
                     dateFormat="dd/MM/yyyy"
                     className="form-control"
@@ -235,9 +258,9 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
           <br />
 
           <Button
-            color={(!(submitting || pristine) && 'primary') || 'secondary'}
+            color={(!submitting && 'primary') || 'secondary'}
             type="submit"
-            disabled={submitting || pristine}>
+            disabled={submitting}>
             {project.id ? 'Update' : 'Submit'}
           </Button>
         </form>

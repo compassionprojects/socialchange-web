@@ -113,7 +113,7 @@ export default function Project(props) {
 
       {p.geo && (
         <Map
-          position={JSON.parse(p.geo).coordinates.reverse()}
+          position={JSON.parse(p.geo).coordinates}
           title={p.title}
           zoom={5}
         />

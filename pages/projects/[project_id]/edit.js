@@ -14,6 +14,7 @@ export default function EditProject({ project, categories }) {
     router.push('/signin');
     return null;
   }
+
   const updateProject = async (project) => {
     try {
       const res = await fetch(`/api/projects/${project.id}/update`, {
