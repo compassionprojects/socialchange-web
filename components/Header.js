@@ -20,6 +20,7 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [session, loading] = useSession();
   const toggle = () => setIsOpen(!isOpen);
+  const loggedIn = session && !loading;
 
   return (
     <Navbar
@@ -34,14 +35,16 @@ function Header() {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
+            {loggedIn && (
+              <NavItem className="ml-md-3">
+                <NavLink tag={Link} href="/projects/add">
+                  Add project
+                </NavLink>
+              </NavItem>
+            )}
             <NavItem className="ml-md-3">
               <NavLink tag={Link} href="/projects">
                 Projects
-              </NavLink>
-            </NavItem>
-            <NavItem className="ml-md-3">
-              <NavLink tag={Link} href="/#about">
-                About
               </NavLink>
             </NavItem>
             <NavItem className="ml-md-3">
@@ -49,6 +52,13 @@ function Header() {
                 Contact
               </NavLink>
             </NavItem>
+            {!loggedIn && (
+              <NavItem className="ml-md-3">
+                <NavLink tag={Link} href="/#about">
+                  About
+                </NavLink>
+              </NavItem>
+            )}
             <NavItem className="ml-md-3">
               <a
                 className="nav-link"

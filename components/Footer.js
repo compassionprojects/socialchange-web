@@ -21,6 +21,11 @@ export default function Footer() {
               </Link>
             </li>
             <li className={listItemClass}>
+              <Link className="text-reset" href="mailto:madhu@nomaddev.co">
+                Contact
+              </Link>
+            </li>
+            <li className={listItemClass}>
               <Link className="text-reset" href="/projects">
                 Projects
               </Link>
@@ -29,13 +34,6 @@ export default function Footer() {
               <li className={listItemClass}>
                 <Link className="text-reset" href="/signin">
                   Sign in
-                </Link>
-              </li>
-            )}
-            {!loading && session && (
-              <li className={listItemClass}>
-                <Link className="text-reset" href="/projects/add">
-                  Add project
                 </Link>
               </li>
             )}
