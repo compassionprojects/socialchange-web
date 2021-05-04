@@ -7,6 +7,7 @@ import { CountryDropdown } from 'react-country-region-selector';
 import DatePicker from 'react-datepicker';
 import opencage from 'opencage-api-client';
 import { OnChange } from 'react-final-form-listeners';
+import Link from 'components/Link';
 import moment from 'moment';
 import { mapCountry } from '../lib';
 import dynamic from 'next/dynamic';
@@ -59,7 +60,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
         if (!values.start_date) errors.start_date = 'Required';
         return errors;
       }}
-      render={({ handleSubmit, form, submitting, values }) => (
+      render={({ handleSubmit, form, submitting, pristine, values }) => (
         <form onSubmit={handleSubmit}>
           <FormGroup>
             <Label for="title">Title</Label>
@@ -73,7 +74,6 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
               placeholder="Project title"
             />
           </FormGroup>
-
           <FormGroup>
             <Label for="description">Description</Label>
             <Field
@@ -88,7 +88,6 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             />
             <FormText color="muted">Give some pointers here</FormText>
           </FormGroup>
-
           <FormGroup>
             <Label for="intentions">Intentions</Label>
             <Field
@@ -102,7 +101,6 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             />
             <FormText color="muted">Give some pointers here</FormText>
           </FormGroup>
-
           <Field name="country">
             {({ input }) => (
               <FormGroup>
@@ -126,7 +124,6 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
               zoom={10}
             />
           )}
-
           <Field name="category_id">
             {({ input }) => (
               <FormGroup>
@@ -146,7 +143,6 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
               </FormGroup>
             )}
           </Field>
-
           <Field name="start_date">
             {({ input }) => (
               <FormGroup>
@@ -175,7 +171,6 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
               </FormGroup>
             )}
           </Field>
-
           <Field name="end_date">
             {({ input }) => (
               <FormGroup>
@@ -207,7 +202,6 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
               </FormGroup>
             )}
           </Field>
-
           <FormGroup>
             <Label for="outcomes">Outcomes</Label>
             <Field
@@ -221,7 +215,6 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             />
             <FormText color="muted">Give some pointers here</FormText>
           </FormGroup>
-
           <FormGroup>
             <Label for="societal_change">Observed societal change</Label>
             <Field
@@ -236,7 +229,6 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             />
             <FormText color="muted">Give some pointers here</FormText>
           </FormGroup>
-
           <FormGroup check>
             <Label check>
               <Field
@@ -254,15 +246,31 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
               topics and discuss)
             </FormText>
           </FormGroup>
-
           <br />
-
           <Button
             color={(!submitting && 'primary') || 'secondary'}
             type="submit"
             disabled={submitting}>
             {project.id ? 'Update' : 'Submit'}
-          </Button>
+          </Button>{' '}
+          <Link
+            className="btn btn-link"
+            onClick={(e) => {
+              e.preventDefault();
+              if (
+                !pristine &&
+                !window.confirm(
+                  'Are you sure? The changes you have made will be lost'
+                )
+              ) {
+                return;
+              }
+
+              window.history.back();
+            }}
+            href="/">
+            Cancel
+          </Link>
         </form>
       )}
     />

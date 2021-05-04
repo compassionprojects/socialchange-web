@@ -4,6 +4,7 @@ import Meta from 'components/Meta';
 import { useSession, getSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import ProjectAddEditForm from 'components/ProjectAddEditForm';
+import Link from 'components/Link';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'leaflet/dist/leaflet.css';
 
@@ -35,6 +36,15 @@ export default function EditProject({ project, categories }) {
 
   return (
     <div className="container py-5">
+      <Link
+        className="btn btn-outline-secondary mb-4"
+        onClick={(e) => {
+          e.preventDefault();
+          window.history.back();
+        }}
+        href="/">
+        Back
+      </Link>
       <h1>Edit {project.title}</h1>
       <Meta title={`Edit ${project.title} | NVC Social Change`} />
       <ProjectAddEditForm
