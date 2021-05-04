@@ -8,6 +8,7 @@ import Link from 'components/Link';
 import TimeAgo from 'react-timeago';
 import { FiList, FiUsers, FiClock, FiMapPin } from 'react-icons/fi';
 import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/client';
 import { mapCountry } from '../../../lib';
 import 'leaflet/dist/leaflet.css';
 
@@ -20,6 +21,7 @@ const Map = dynamic(import('components/Map'), {
 
 export default function Project(props) {
   const { project: p } = props;
+  const [session, loading] = useSession();
   return (
     <>
       <div className="container">
@@ -30,7 +32,16 @@ export default function Project(props) {
           <BreadcrumbItem active>{p.title}</BreadcrumbItem>
         </Breadcrumb>
 
-        <h1>{p.title}</h1>
+        <h1>
+          {p.title}{' '}
+          {!loading && session && session.user.id === p.author_id && (
+            <Link
+              className="btn btn-sm btn-outline-primary"
+              href={`/projects/${p.id}/edit`}>
+              Edit
+            </Link>
+          )}
+        </h1>
 
         <Meta title={`${p.title} | NVC Social Change`} />
 
@@ -104,6 +115,7 @@ export default function Project(props) {
         <Map
           position={JSON.parse(p.geo).coordinates.reverse()}
           title={p.title}
+          zoom={5}
         />
       )}
 

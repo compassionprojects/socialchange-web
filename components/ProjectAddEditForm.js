@@ -21,7 +21,9 @@ const Map = dynamic(import('components/Map'), {
 // https://codesandbox.io/s/5w4yrpyo7k?file=/AutoSave.js
 
 export default function ProjectAddEditForm({ onSubmit, project, categories }) {
-  const [geography, setGeo] = useState(null);
+  const [geography, setGeo] = useState(
+    project.geo ? JSON.parse(project.geo) : null
+  );
   const updateCountry = async (value) => {
     const { results } = await opencage.geocode({
       q: mapCountry[value],
@@ -138,7 +140,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             )}
           </Field>
 
-          <Field name="start_date">
+          {/* <Field name="start_date">
             {({ input }) => (
               <FormGroup>
                 <Label for="start_date">Start Date</Label>
@@ -149,6 +151,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                     {...input}
                     required
                     showYearDropdown
+                    dateFormat="dd/MM/yyyy"
                     className="form-control"
                     id="start_date"
                     placeholderText="Project start date"
@@ -156,7 +159,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                 </div>
               </FormGroup>
             )}
-          </Field>
+          </Field> */}
 
           <Field name="end_date">
             {({ input }) => (
@@ -169,6 +172,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                     minDate={values.start_date}
                     {...input}
                     showYearDropdown
+                    dateFormat="dd/MM/yyyy"
                     className="form-control"
                     id="end_date"
                     placeholderText="Project end date"
@@ -234,7 +238,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             color={(!(submitting || pristine) && 'primary') || 'secondary'}
             type="submit"
             disabled={submitting || pristine}>
-            Submit
+            {project.id ? 'Update' : 'Submit'}
           </Button>
         </form>
       )}

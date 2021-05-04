@@ -6,9 +6,11 @@ import truncate from 'truncate';
 import Link from 'components/Link';
 import { FiMapPin, FiClock } from 'react-icons/fi';
 import moment from 'moment';
+import { useSession } from 'next-auth/client';
 import { mapCountry } from '../lib';
 
 export default function ProjectsList(props) {
+  const [session, loading] = useSession();
   const { projects } = props;
   return projects.map((p, idx) => (
     <div
@@ -39,10 +41,18 @@ export default function ProjectsList(props) {
           months
         </span>
       </div>
-
-      <Link className="btn btn-outline-primary" href={`/projects/${p.id}`}>
+      <Link
+        className="btn btn-sm btn-outline-primary"
+        href={`/projects/${p.id}`}>
         Read more
-      </Link>
+      </Link>{' '}
+      {!loading && session && session.user.id === p.author_id && (
+        <Link
+          className="btn btn-sm btn-outline-primary"
+          href={`/projects/${p.id}/edit`}>
+          Edit
+        </Link>
+      )}
     </div>
   ));
 }

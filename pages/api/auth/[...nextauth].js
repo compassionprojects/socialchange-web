@@ -1,37 +1,5 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
-import Adapters from 'next-auth/adapters';
-
-// Extend the built-in models using class inheritance
-class User extends Adapters.TypeORM.Models.User.model {
-  // You can extend the options in a model but you should not remove the base
-  // properties or change the order of the built-in options on the constructor
-  constructor(name, email, image, emailVerified) {
-    super(name, email, image, emailVerified);
-  }
-}
-
-export const UserSchema = {
-  name: 'User',
-  target: User,
-  columns: {
-    ...Adapters.TypeORM.Models.User.schema.columns,
-    email: {
-      // This is inherited from the one in the OAuth provider profile on
-      // initial sign in, if one is specified in that profile.
-      type: 'varchar',
-      unique: true,
-      nullable: false,
-    },
-  },
-};
-
-const Models = {
-  User: {
-    model: User,
-    schema: UserSchema,
-  },
-};
 
 export default NextAuth({
   session: {
@@ -45,6 +13,13 @@ export default NextAuth({
     signingKey: process.env.JWT_SIGNING_KEY,
     verificationOptions: {
       algorithms: ['HS512'],
+    },
+  },
+
+  callbacks: {
+    async session(session, token) {
+      session.user.id = parseInt(token.sub, 10);
+      return session;
     },
   },
 
@@ -69,17 +44,6 @@ export default NextAuth({
 
   // A database is optional, but required to persist accounts in a database
   database: process.env.DATABASE_URL,
-
-  adapter: Adapters.TypeORM.Adapter(
-    // The first argument should be a database connection string or TypeORM config object
-    process.env.DATABASE_URL,
-    // The second argument can be used to pass custom models and schemas
-    {
-      models: {
-        User: Models.User,
-      },
-    }
-  ),
 
   theme: 'light',
 });

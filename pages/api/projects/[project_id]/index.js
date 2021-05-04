@@ -1,5 +1,5 @@
-import db from '../../../db';
-import { defaultFilters } from './index';
+import db from '../../../../db';
+import { defaultFilters } from '../index';
 const knexPostgis = require('knex-postgis');
 const st = knexPostgis(db);
 
