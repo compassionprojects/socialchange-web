@@ -16,17 +16,17 @@ export default function EditProject({ project, categories }) {
     return null;
   }
 
-  const updateProject = async (project) => {
+  const updateProject = async (p) => {
     try {
-      const res = await fetch(`/api/projects/${project.id}/update`, {
+      const res = await fetch(`/api/projects/${p.id}/update`, {
         method: 'post',
-        body: JSON.stringify(project),
+        body: JSON.stringify(p),
         headers: {
           'Content-Type': 'application/json',
         },
       });
       await res.json();
-      router.push(`/projects/${project.id}`);
+      router.push(`/projects/${p.id}`);
     } catch (e) {
       console.log(e);
       // @todo display error with proper details so that user understands
@@ -80,6 +80,17 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
+
+  // authorization check
+  if (session.user.id !== project.author_id) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/projects/${project_id}`,
+      },
+    };
+  }
+
   return {
     props: { session, categories, project },
   };

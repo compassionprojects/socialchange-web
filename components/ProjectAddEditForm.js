@@ -177,7 +177,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                 <Label for="end_date">End Date</Label>
                 <div>
                   <DatePicker
-                    selected={moment(input.value).toDate()}
+                    selected={input.value ? moment(input.value).toDate() : null}
                     maxDate={new Date()}
                     minDate={moment(values.start_date).toDate()}
                     onChange={(date) => {
