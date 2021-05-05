@@ -1,16 +1,39 @@
 import React from 'react';
 import PropType from 'proptypes';
 import qs from 'qs';
+import { Input, Button } from 'reactstrap';
 import Meta from 'components/Meta';
 import Link from 'components/Link';
 import ProjectsList from 'components/ProjectsList';
+import { FiSearch } from 'react-icons/fi';
 
 export default function Projects(props) {
   const { projects, categories } = props;
   return (
     <div className="container py-5">
       <Meta title="Projects | NVC Social Change" />
-      <h1>Projects</h1>
+      <div className="row align-items-center">
+        <div className="col-sm-12 col-md-6 col-lg-8">
+          <h1>Projects</h1>
+        </div>
+        <div className="col-sm-12 col-md-6 col-lg-4">
+          <form action="/projects/search" className="my-2 my-sm-0 form-inline">
+            <div className="d-flex">
+              <Input
+                required
+                placeholder="Search projects"
+                type="search"
+                className="mr-1"
+                name="q"
+              />
+              <Button color="primary" type="submit" className="flex-shrink-0">
+                <FiSearch /> Search
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <div className="mt-3">
         These are some Social Change projects that our community members have
         added where NVC has been a part of.
