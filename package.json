@@ -35,7 +35,7 @@
     "proptypes": "~1.1.0",
     "qs": "~6.10.1",
     "react": "17.0.2",
-    "react-country-region-selector": "git://github.com/madhums/react-country-region-selector.git",
+    "react-country-region-selector": "https://github.com/madhums/react-country-region-selector/tarball/a46634e33d6dbe9a33663ac4578b7e44594a0a4b",
     "react-datepicker": "~3.8.0",
     "react-dom": "17.0.2",
     "react-final-form": "~6.5.3",
