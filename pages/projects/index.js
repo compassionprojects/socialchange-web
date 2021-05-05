@@ -13,21 +13,23 @@ export default function Projects(props) {
     <div className="container py-5">
       <Meta title="Projects | NVC Social Change" />
       <div className="row align-items-center">
-        <div className="col-sm-12 col-md-6 col-12">
+        <div className="col-sm-12 col-md-6 col-lg-8">
           <h1>Projects</h1>
         </div>
-        <div className="col-sm-12 mr-auto mr-sm-0 col-md-6 col-lg-5 ml-sm-auto">
+        <div className="col-sm-12 col-md-6 col-lg-4">
           <form action="/projects/search" className="my-2 my-sm-0 form-inline">
-            <Input
-              required
-              placeholder="Search projects"
-              type="search"
-              name="q"
-            />
-            &nbsp;
-            <Button color="primary" type="submit">
-              <FiSearch /> Search
-            </Button>
+            <div className="d-flex">
+              <Input
+                required
+                placeholder="Search projects"
+                type="search"
+                className="mr-1"
+                name="q"
+              />
+              <Button color="primary" type="submit" className="flex-shrink-0">
+                <FiSearch /> Search
+              </Button>
+            </div>
           </form>
         </div>
       </div>
