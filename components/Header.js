@@ -36,30 +36,30 @@ function Header() {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             {loggedIn && (
-              <NavItem className="ml-md-3">
+              <NavItem className="ml-lg-3">
                 <NavLink tag={Link} href="/projects/add">
                   Add project
                 </NavLink>
               </NavItem>
             )}
-            <NavItem className="ml-md-3">
+            <NavItem className="ml-lg-3">
               <NavLink tag={Link} href="/projects">
                 Projects
               </NavLink>
             </NavItem>
-            <NavItem className="ml-md-3">
+            <NavItem className="ml-lg-3">
               <NavLink tag={Link} href="mailto:madhu@nomaddev.co">
                 Contact
               </NavLink>
             </NavItem>
             {!loggedIn && (
-              <NavItem className="ml-md-3">
+              <NavItem className="ml-lg-3">
                 <NavLink tag={Link} href="/#about">
                   About
                 </NavLink>
               </NavItem>
             )}
-            <NavItem className="ml-md-3">
+            <NavItem className="ml-lg-3">
               <a
                 className="nav-link"
                 href="https://opencollective.com/nvc-social-change"
@@ -69,7 +69,7 @@ function Header() {
               </a>
             </NavItem>
             {!loading && session && (
-              <UncontrolledDropdown nav inNavbar className="ml-md-3">
+              <UncontrolledDropdown nav inNavbar className="ml-lg-3">
                 <DropdownToggle nav>
                   Account <FiChevronDown />
                 </DropdownToggle>
