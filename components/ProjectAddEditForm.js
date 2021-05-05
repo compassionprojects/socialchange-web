@@ -28,6 +28,15 @@ const Map = dynamic(import('components/Map'), {
   },
 });
 
+// Required fields
+const requiredFields = {
+  title: 'Title',
+  description: 'Description',
+  category_id: 'Category',
+  country: 'Country',
+  start_date: 'Start Date',
+};
+
 // @todo AutoSave to localStorage
 // https://codesandbox.io/s/5w4yrpyo7k?file=/AutoSave.js
 
@@ -78,7 +87,15 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
         if (!values.start_date) errors.start_date = 'Required';
         return errors;
       }}
-      render={({ handleSubmit, form, submitting, pristine, values }) => (
+      render={({
+        handleSubmit,
+        form,
+        submitting,
+        pristine,
+        values,
+        hasValidationErrors,
+        errors,
+      }) => (
         <form onSubmit={handleSubmit}>
           <Field name="title">
             {({ input, meta }) => (
@@ -90,7 +107,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                   type="text"
                   id="title"
                   placeholder="Project title"
-                  invalid={meta.error && meta.modified}
+                  invalid={isInvalid(meta)}
                 />
                 <Feedback meta={meta} />
               </FormGroup>
@@ -107,7 +124,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                   rows={6}
                   id="description"
                   placeholder="A brief description of the project, situation in which NVC was introduced"
-                  invalid={meta.error && meta.modified}
+                  invalid={isInvalid(meta)}
                 />
                 {/* <FormText color="muted">Give some pointers here</FormText> */}
                 <Feedback meta={meta} />
@@ -136,7 +153,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                   valueType="short"
                   required
                   className={classnames('form-control', {
-                    'is-invalid': meta.error && meta.modified,
+                    'is-invalid': isInvalid(meta),
                   })}
                   id="country"
                   defaultOptionLabel="-- Select Country --"
@@ -167,7 +184,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                   {...input}
                   required
                   className={classnames('form-control', {
-                    'is-invalid': meta.error && meta.modified,
+                    'is-invalid': isInvalid(meta),
                   })}
                   id="category_id">
                   <option value="">-- Select Category --</option>
@@ -185,7 +202,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             {({ input, meta }) => (
               <FormGroup>
                 <Label for="start_date">Start Date</Label>
-                <div className={meta.error && meta.modified && 'is-invalid'}>
+                <div className={isInvalid(meta) ? 'is-invalid' : ''}>
                   <DatePicker
                     selected={input.value ? moment(input.value).toDate() : null}
                     maxDate={new Date()}
@@ -202,7 +219,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                     showYearDropdown
                     dateFormat="dd/MM/yyyy"
                     className={classnames('form-control', {
-                      'is-invalid': meta.error && meta.modified,
+                      'is-invalid': isInvalid(meta),
                     })}
                     id="start_date"
                     placeholderText="Project start date"
@@ -291,7 +308,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
           <Button
             color={(!submitting && 'primary') || 'secondary'}
             type="submit"
-            disabled={submitting}>
+            disabled={submitting || hasValidationErrors}>
             {project.id ? 'Update project' : 'Create project'}
           </Button>{' '}
           <Link
@@ -312,6 +329,17 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             href="/">
             Cancel
           </Link>
+          {hasValidationErrors && (
+            <div className="border border-danger rounded mt-5">
+              <ul className="py-4 text-danger mb-0">
+                {Object.keys(errors).map((key) => (
+                  <li key={key}>
+                    {requiredFields[key]} is {errors[key]}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <br />
           {/* @todo collect reason for archiving */}
           {/* @todo display archived project separately */}
@@ -358,12 +386,14 @@ const FormGroup = styled(_FormGroup).attrs({
 
 function Feedback({ meta }) {
   return (
-    <FormFeedback>
-      {meta.error && meta.modified && <span>{meta.error}</span>}
-    </FormFeedback>
+    <FormFeedback>{isInvalid(meta) && <span>{meta.error}</span>}</FormFeedback>
   );
 }
 
 Feedback.propTypes = {
   meta: PropTypes.object,
 };
+
+function isInvalid(meta) {
+  return meta.error && meta.modified;
+}

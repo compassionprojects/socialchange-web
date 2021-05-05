@@ -22,9 +22,17 @@ export default function ProjectsList(props) {
         <span className="h5 d-inline-block">{p.title}</span>
       </Link>
       <div className="text-muted small">
-        <TimeAgo date={p.created_at} /> by{' '}
-        {p.author_name || `User#${p.author_id}`} in{' '}
-        <Link href={`/categories/${p.category_id}`}>{p.category_name}</Link>
+        <TimeAgo date={p.created_at} />
+        {(p.author_id || p.author_name) && (
+          <> by {p.author_name || `User#${p.author_id}`}</>
+        )}
+        {p.category_id && (
+          <>
+            {' '}
+            in{' '}
+            <Link href={`/categories/${p.category_id}`}>{p.category_name}</Link>
+          </>
+        )}
       </div>
       <div className="py-2">{truncate(p.description, 280)}</div>
       <div
@@ -35,11 +43,16 @@ export default function ProjectsList(props) {
             <FiMapPin /> {mapCountry[p.country]}
           </span>
         )}
-        <span>
-          <FiClock />{' '}
-          {moment(p.end_date || moment()).diff(moment(p.start_date), 'months')}{' '}
-          months
-        </span>
+        {p.start_date && (
+          <span>
+            <FiClock />{' '}
+            {moment(p.end_date || moment()).diff(
+              moment(p.start_date),
+              'months'
+            )}{' '}
+            months
+          </span>
+        )}
       </div>
       <Link
         className="btn btn-sm btn-outline-primary"

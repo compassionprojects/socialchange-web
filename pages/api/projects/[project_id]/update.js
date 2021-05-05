@@ -1,4 +1,5 @@
 import db from '../../../../db';
+import elastic from '../../../../elastic';
 import jwt from 'next-auth/jwt';
 import knexPostgis from 'knex-postgis';
 
@@ -59,6 +60,25 @@ export default async (req, res) => {
     .returning('*');
 
   if (!project) return res.status(401).json({ error: 'Authorization error' });
+
+  try {
+    await elastic.update({
+      index: 'projects_index',
+      id: project.id,
+      body: {
+        doc: {
+          title,
+          description,
+          intentions,
+          outcomes,
+          societal_change,
+        },
+      },
+    });
+  } catch (e) {
+    console.log('Indexing error');
+    console.log(e);
+  }
 
   res.status(200).json(project);
 };
