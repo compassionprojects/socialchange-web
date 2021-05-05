@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'proptypes';
 import styled from 'styled-components';
+import classnames from 'classnames';
 import { Form, Field } from 'react-final-form';
-import { Button, FormGroup as _FormGroup, Label, FormText } from 'reactstrap';
+import {
+  Button,
+  FormGroup as _FormGroup,
+  Label,
+  FormText,
+  FormFeedback,
+  Input,
+} from 'reactstrap';
 import { CountryDropdown } from 'react-country-region-selector';
 import DatePicker from 'react-datepicker';
 import opencage from 'opencage-api-client';
@@ -19,8 +27,11 @@ const Map = dynamic(import('components/Map'), {
   },
 });
 
-// @todo use AutoSave with localStorage
+// @todo AutoSave to localStorage
 // https://codesandbox.io/s/5w4yrpyo7k?file=/AutoSave.js
+
+// @todo add beforeunload event handler
+// using https://github.com/donavon/use-event-listener
 
 export default function ProjectAddEditForm({ onSubmit, project, categories }) {
   const [geography, setGeo] = useState(
@@ -57,40 +68,51 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
       }}
       initialValues={{ ...project }}
       validate={(values) => {
+        console.log(values);
         const errors = {};
         if (!values.title) errors.title = 'Required';
         if (!values.description) errors.description = 'Required';
+        if (!values.country) errors.country = 'Required';
+        if (!values.category_id) errors.category_id = 'Required';
         if (!values.start_date) errors.start_date = 'Required';
         return errors;
       }}
       render={({ handleSubmit, form, submitting, pristine, values }) => (
         <form onSubmit={handleSubmit}>
-          <FormGroup>
-            <Label for="title">Title</Label>
-            <Field
-              name="title"
-              required
-              component="input"
-              className="form-control"
-              type="text"
-              id="title"
-              placeholder="Project title"
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="description">Description</Label>
-            <Field
-              name="description"
-              required
-              component="textarea"
-              className="form-control"
-              rows={6}
-              type="text"
-              id="description"
-              placeholder="A brief description of the project, situation in which NVC was introduced"
-            />
-            <FormText color="muted">Give some pointers here</FormText>
-          </FormGroup>
+          <Field name="title">
+            {({ input, meta }) => (
+              <FormGroup>
+                <Label for="title">Title</Label>
+                <Input
+                  required
+                  {...input}
+                  type="text"
+                  id="title"
+                  placeholder="Project title"
+                  invalid={meta.error && meta.modified}
+                />
+                <Feedback meta={meta} />
+              </FormGroup>
+            )}
+          </Field>
+          <Field name="description">
+            {({ input, meta }) => (
+              <FormGroup>
+                <Label for="description">Description</Label>
+                <Input
+                  required
+                  {...input}
+                  type="textarea"
+                  rows={6}
+                  id="description"
+                  placeholder="A brief description of the project, situation in which NVC was introduced"
+                  invalid={meta.error && meta.modified}
+                />
+                {/* <FormText color="muted">Give some pointers here</FormText> */}
+                <Feedback meta={meta} />
+              </FormGroup>
+            )}
+          </Field>
           <FormGroup>
             <Label for="intentions">Intentions</Label>
             <Field
@@ -102,20 +124,23 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
               id="intentions"
               placeholder="The intentions and goals of using Nonviolent Communication in the project"
             />
-            <FormText color="muted">Give some pointers here</FormText>
+            {/* <FormText color="muted">Give some pointers here</FormText> */}
           </FormGroup>
           <Field name="country">
-            {({ input }) => (
+            {({ input, meta }) => (
               <FormGroup>
                 <Label for="country">Country</Label>
                 <CountryDropdown
                   {...input}
                   valueType="short"
                   required
-                  className="form-control"
+                  className={classnames('form-control', {
+                    'is-invalid': meta.error && meta.modified,
+                  })}
                   id="country"
                   defaultOptionLabel="-- Select Country --"
                 />
+                <Feedback meta={meta} />
               </FormGroup>
             )}
           </Field>
@@ -134,29 +159,32 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             </>
           )}
           <Field name="category_id">
-            {({ input }) => (
+            {({ input, meta }) => (
               <FormGroup>
                 <Label for="category_id">Category</Label>
                 <select
                   {...input}
                   required
-                  className="form-control"
+                  className={classnames('form-control', {
+                    'is-invalid': meta.error && meta.modified,
+                  })}
                   id="category_id">
-                  <option>-- Select Category --</option>
+                  <option value="">-- Select Category --</option>
                   {categories.map((c) => (
                     <option key={c.id} value={c.id}>
                       {c.name}
                     </option>
                   ))}
                 </select>
+                <Feedback meta={meta} />
               </FormGroup>
             )}
           </Field>
           <Field name="start_date">
-            {({ input }) => (
+            {({ input, meta }) => (
               <FormGroup>
                 <Label for="start_date">Start Date</Label>
-                <div>
+                <div className={meta.error && meta.modified && 'is-invalid'}>
                   <DatePicker
                     selected={input.value ? moment(input.value).toDate() : null}
                     maxDate={new Date()}
@@ -172,11 +200,14 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                     required
                     showYearDropdown
                     dateFormat="dd/MM/yyyy"
-                    className="form-control"
+                    className={classnames('form-control', {
+                      'is-invalid': meta.error && meta.modified,
+                    })}
                     id="start_date"
                     placeholderText="Project start date"
                   />
                 </div>
+                <Feedback meta={meta} />
               </FormGroup>
             )}
           </Field>
@@ -222,7 +253,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
               id="outcomes"
               placeholder="The outcomes of and after using Nonviolent Communication in the project"
             />
-            <FormText color="muted">Give some pointers here</FormText>
+            {/* <FormText color="muted">Give some pointers here</FormText> */}
           </FormGroup>
           <FormGroup>
             <Label for="societal_change">Observed societal change</Label>
@@ -236,7 +267,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
               placeholder="Observed changes in the society as a consequence of
               using NVC"
             />
-            <FormText color="muted">Give some pointers here</FormText>
+            {/* <FormText color="muted">Give some pointers here</FormText> */}
           </FormGroup>
           <FormGroup check>
             <Label check>
@@ -295,3 +326,15 @@ ProjectAddEditForm.propTypes = {
 const FormGroup = styled(_FormGroup).attrs({
   className: 'form-group my-5',
 })``;
+
+function Feedback({ meta }) {
+  return (
+    <FormFeedback>
+      {meta.error && meta.modified && <span>{meta.error}</span>}
+    </FormFeedback>
+  );
+}
+
+Feedback.propTypes = {
+  meta: PropTypes.object,
+};
