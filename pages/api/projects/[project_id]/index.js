@@ -1,5 +1,5 @@
-import db from '../../../db';
-import { defaultFilters } from './index';
+import db from '../../../../db';
+import { defaultFilters } from '../index';
 const knexPostgis = require('knex-postgis');
 const st = knexPostgis(db);
 
@@ -20,7 +20,9 @@ export default async (req, res) => {
       'societal_change',
       'categories.name as category_name',
       'category_id',
+      'country',
       'users.name as author_name',
+      'users.id as author_id',
       'projects.created_at',
       st.asGeoJSON('geo'),
       'num_people',

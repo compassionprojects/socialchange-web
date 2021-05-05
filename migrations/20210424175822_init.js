@@ -48,6 +48,7 @@ exports.up = function (knex) {
       table.timestamp('updated_at', { useTz: true }).defaultTo(knex.fn.now());
       table.date('start_date');
       table.date('end_date');
+      table.string('country', 2).notNullable();
       table.specificType('geo', 'geography(POINT,4326)');
       table.integer('num_people');
       table.boolean('has_discussions').notNullable().defaultTo(false);

@@ -8,6 +8,8 @@ import Link from 'components/Link';
 import TimeAgo from 'react-timeago';
 import { FiList, FiUsers, FiClock, FiMapPin } from 'react-icons/fi';
 import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/client';
+import { mapCountry } from '../../../lib';
 import 'leaflet/dist/leaflet.css';
 
 const Map = dynamic(import('components/Map'), {
@@ -19,6 +21,7 @@ const Map = dynamic(import('components/Map'), {
 
 export default function Project(props) {
   const { project: p } = props;
+  const [session, loading] = useSession();
   return (
     <>
       <div className="container">
@@ -29,12 +32,22 @@ export default function Project(props) {
           <BreadcrumbItem active>{p.title}</BreadcrumbItem>
         </Breadcrumb>
 
-        <h1>{p.title}</h1>
+        <h1>
+          {p.title}{' '}
+          {!loading && session && session.user.id === p.author_id && (
+            <Link
+              className="btn btn-sm btn-outline-primary"
+              href={`/projects/${p.id}/edit`}>
+              Edit
+            </Link>
+          )}
+        </h1>
 
         <Meta title={`${p.title} | NVC Social Change`} />
 
         <div className="text-muted small">
-          <TimeAgo date={p.created_at} /> by {p.author_name} in{' '}
+          <TimeAgo date={p.created_at} /> by{' '}
+          {p.author_name || `User#${p.author_id}`} in{' '}
           <Link href={`/categories/${p.category_id}`}>{p.category_name}</Link>
         </div>
 
@@ -65,11 +78,11 @@ export default function Project(props) {
               </span>
             </div>
 
-            {p.location && (
+            {p.country && (
               <div className="py-1 d-flex align-items-center">
                 <FiMapPin className="text-black-50" />
                 <span className="ml-2">
-                  <strong>Location</strong>: {p.location.name}
+                  <strong>Country</strong>: {mapCountry[p.country]}
                 </span>
               </div>
             )}
@@ -98,7 +111,13 @@ export default function Project(props) {
         </div>
       </div>
 
-      <Map position={JSON.parse(p.geo).coordinates.reverse()} title={p.title} />
+      {p.geo && (
+        <Map
+          position={JSON.parse(p.geo).coordinates}
+          title={p.title}
+          zoom={5}
+        />
+      )}
 
       <div className="container pt-4 pb-5">
         {p.outcomes && (
