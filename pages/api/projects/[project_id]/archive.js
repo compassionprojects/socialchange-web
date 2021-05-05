@@ -1,4 +1,5 @@
 import db from '../../../../db';
+import elastic from '../../../../elastic';
 import jwt from 'next-auth/jwt';
 
 const secret = process.env.JWT_SECRET;
@@ -37,6 +38,16 @@ export default async (req, res) => {
     .returning('*');
 
   if (!project) return res.status(401).json({ error: 'Authorization error' });
+
+  try {
+    await elastic.delete({
+      index: 'projects_index',
+      id: project.id,
+    });
+  } catch (e) {
+    console.log('Indexing error');
+    console.log(e);
+  }
 
   res.status(200).json(project);
 };
