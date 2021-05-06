@@ -46,7 +46,7 @@ export default function Project(props) {
         <Meta title={`${p.title} | NVC Social Change`} />
 
         <div className="text-muted small">
-          <TimeAgo date={p.created_at} /> by{' '}
+          <TimeAgo date={p.created_at} minPeriod={60} /> by{' '}
           {p.author_name || `User#${p.author_id}`} in{' '}
           <Link href={`/categories/${p.category_id}`}>{p.category_name}</Link>
         </div>
