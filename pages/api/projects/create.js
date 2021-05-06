@@ -2,7 +2,7 @@ import db from '../../../db';
 import elastic from '../../../elastic';
 import jwt from 'next-auth/jwt';
 import knexPostgis from 'knex-postgis';
-import { mapCountry } from '../../../../lib';
+import { mapCountry } from '../../../lib';
 
 const st = knexPostgis(db);
 const secret = process.env.JWT_SECRET;
