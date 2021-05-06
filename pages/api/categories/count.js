@@ -1,6 +1,10 @@
 import db from '../../../db';
 
 export default async (req, res) => {
+  const [project_status] = await db('project_statuses')
+    .select('id')
+    .where('code', 'published');
+
   const categories = await db
     .select([
       'categories.id',
@@ -9,7 +13,7 @@ export default async (req, res) => {
         `(
           select count(projects.id)
           from projects
-          where projects.category_id = categories.id
+          where projects.category_id = categories.id and projects.project_status_id = ${project_status.id}
         ) as count_projects`
       ),
     ])
