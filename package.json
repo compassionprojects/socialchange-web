@@ -45,6 +45,7 @@
     "react-icons": "~4.2.0",
     "react-leaflet": "~3.1.0",
     "react-timeago": "~5.2.0",
+    "react-ultimate-pagination": "https://github.com/madhums/react-ultimate-pagination/tarball/b466773ccf526d4ac4aea92759e5be277043ff73",
     "reactstrap": "~8.9.0",
     "styled-components": "~5.2.3",
     "truncate": "~2.1.0"

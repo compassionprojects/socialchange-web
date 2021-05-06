@@ -1,13 +1,26 @@
 import React from 'react';
-import PropType from 'proptypes';
+import PropTypes from 'proptypes';
 import qs from 'qs';
 import { Input, Button } from 'reactstrap';
 import Meta from 'components/Meta';
 import Link from 'components/Link';
 import ProjectsList from 'components/ProjectsList';
+import Paginate from 'components/Paginate';
+import { useRouter } from 'next/router';
 
 export default function Projects(props) {
-  const { projects, categories } = props;
+  const { projects, count, categories } = props;
+  const router = useRouter();
+  const { page, per_page } = router.query;
+  const paginate = (page) => {
+    router.push({
+      pathname: '/projects',
+      query: {
+        ...router.query,
+        page,
+      },
+    });
+  };
   return (
     <div className="container py-5">
       <Meta title="Projects | NVC Social Change" />
@@ -40,6 +53,12 @@ export default function Projects(props) {
       <div className="row">
         <div className="col-lg-8 col-sm-12 order-lg-1 order-2">
           <ProjectsList projects={projects} />
+          <Paginate
+            perPage={parseInt(per_page)}
+            onSelect={paginate}
+            total={count}
+            current={parseInt(page || 1)}
+          />
         </div>
         <div className="col-sm-12 col-lg-4 order-lg-2 order-1 pt-5">
           <h2>Categories</h2>
@@ -57,8 +76,9 @@ export default function Projects(props) {
 }
 
 Projects.propTypes = {
-  projects: PropType.array,
-  categories: PropType.array,
+  projects: PropTypes.array,
+  categories: PropTypes.array,
+  count: PropTypes.number,
 };
 
 export async function getServerSideProps(ctx) {
@@ -72,6 +92,6 @@ export async function getServerSideProps(ctx) {
   const categories = await cres.json();
 
   return {
-    props: { projects, count, categories },
+    props: { projects, count: parseInt(count), categories },
   };
 }
