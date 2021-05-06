@@ -79,7 +79,8 @@ export default async (req, res) => {
           societal_change,
           category_id,
           category_name: category.name,
-          country: mapCountry[country],
+          country,
+          country_name: mapCountry[country],
         },
       },
     });

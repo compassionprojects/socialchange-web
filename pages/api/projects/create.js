@@ -81,7 +81,8 @@ export default async (req, res) => {
         author_id: author.id,
         category_id,
         category_name: category.name,
-        country: mapCountry[country],
+        country,
+        country_name: mapCountry[country],
       },
     });
   } catch (e) {

@@ -10,6 +10,7 @@ export default async (req, res) => {
     'societal_change',
     'country',
     'category_name',
+    'country_name',
   ];
 
   const results = await elastic.msearch({
