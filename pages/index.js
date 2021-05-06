@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'proptypes';
 import Link from 'components/Link';
 import Meta from 'components/Meta';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { useSession } from 'next-auth/client';
 
-export default function Home() {
+export default function Home({ stats }) {
   const [session, loading] = useSession();
   return (
     <>
@@ -85,7 +86,33 @@ export default function Home() {
             </a>
           </div>
         </section>
+
+        <section className="my-3 py-5">
+          <div className="row text-center justify-content-center">
+            <div className="col-sm-3 col-4 col-md-2">
+              <h3>{stats.num_projects}</h3>Projects
+            </div>
+            <div className="col-sm-3 col-4 col-md-2">
+              <h3>{stats.num_countries}</h3>Countries
+            </div>
+            <div className="col-sm-3 col-4 col-md-2">
+              <h3>{stats.num_categories}</h3>Categories
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );
+}
+
+Home.propTypes = {
+  stats: PropTypes.object,
+};
+
+export async function getServerSideProps() {
+  const res = await fetch(`${process.env.API_ROOT}/api/projects/stats`);
+  const stats = await res.json();
+  return {
+    props: { stats },
+  };
 }
