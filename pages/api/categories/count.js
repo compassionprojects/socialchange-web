@@ -19,6 +19,7 @@ export default async (req, res) => {
     ])
     .from('categories')
     .innerJoin('projects', 'projects.category_id', 'categories.id')
+    .where('projects.project_status_id', project_status.id)
     .groupBy('categories.id')
     .orderBy('categories.name')
     .havingRaw('count(categories.id) > 0');
