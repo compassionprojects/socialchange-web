@@ -5,7 +5,6 @@ import { Input, Button } from 'reactstrap';
 import Meta from 'components/Meta';
 import Link from 'components/Link';
 import ProjectsList from 'components/ProjectsList';
-import { FiSearch } from 'react-icons/fi';
 
 export default function Projects(props) {
   const { projects, categories } = props;
@@ -27,7 +26,7 @@ export default function Projects(props) {
                 name="q"
               />
               <Button color="primary" type="submit" className="flex-shrink-0">
-                <FiSearch /> Search
+                Search
               </Button>
             </div>
           </form>
