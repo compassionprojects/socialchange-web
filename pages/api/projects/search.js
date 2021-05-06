@@ -8,6 +8,8 @@ export default async (req, res) => {
     'intentions',
     'outcomes',
     'societal_change',
+    'country',
+    'category_name',
   ];
 
   const results = await elastic.msearch({
@@ -21,7 +23,8 @@ export default async (req, res) => {
 
   res.status(200).json({
     results: results.body.responses
-      .flatMap((r) => r.hits.hits)
+      .flatMap((r) => r.hits && r.hits.hits)
+      .filter((r) => r)
       .map((r) => r._source)
       .reduce((init, doc) => {
         // remove duplicates
