@@ -63,7 +63,6 @@ const UltimatePagination = createUltimatePagination({
 
 export default function Paginate(props) {
   const { current, total, perPage, onSelect } = props;
-  console.log(props);
   if (!total) return null;
   const totalPages = Math.ceil(total / perPage) || 1;
   if (totalPages <= 1) return null;
