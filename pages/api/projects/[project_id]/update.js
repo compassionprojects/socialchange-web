@@ -62,6 +62,10 @@ export default async (req, res) => {
   if (!project) return res.status(401).json({ error: 'Authorization error' });
 
   try {
+    const [category] = await db('categories')
+      .select('name')
+      .where('id', category_id);
+
     await elastic.update({
       index: 'projects_index',
       id: project.id,
@@ -72,6 +76,9 @@ export default async (req, res) => {
           intentions,
           outcomes,
           societal_change,
+          category_id,
+          category_name: category.name,
+          country,
         },
       },
     });

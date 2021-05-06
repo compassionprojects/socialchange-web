@@ -61,6 +61,10 @@ export default async (req, res) => {
     .returning('*');
 
   try {
+    const [category] = await db('categories')
+      .select('name')
+      .where('id', category_id);
+
     await elastic.index({
       index: 'projects_index',
       id: project.id,
@@ -71,6 +75,12 @@ export default async (req, res) => {
         intentions,
         outcomes,
         societal_change,
+        created_at: project.created_at,
+        author_name: author.name,
+        author_id: author.id,
+        category_id,
+        category_name: category.name,
+        country,
       },
     });
   } catch (e) {

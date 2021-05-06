@@ -22,7 +22,7 @@ export default function ProjectsList(props) {
         <span className="h5 d-inline-block">{p.title}</span>
       </Link>
       <div className="text-muted small">
-        <TimeAgo date={p.created_at} />
+        <TimeAgo date={p.created_at} minPeriod={60} />
         {(p.author_id || p.author_name) && (
           <> by {p.author_name || `User#${p.author_id}`}</>
         )}
