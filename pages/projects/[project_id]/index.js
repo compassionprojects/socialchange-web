@@ -100,11 +100,11 @@ export default function Project(props) {
               <FiClock className="text-black-50" />
               <span className="ml-2">
                 <strong>Duration</strong>:{' '}
-                {moment(p.end_date || moment()).diff(
-                  moment(p.start_date),
-                  'months'
-                )}{' '}
-                months
+                {moment
+                  .duration(
+                    moment(p.end_date || moment()).diff(moment(p.start_date))
+                  )
+                  .humanize()}{' '}
               </span>
             </div>
           </div>

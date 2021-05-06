@@ -46,11 +46,11 @@ export default function ProjectsList(props) {
         {p.start_date && (
           <span>
             <FiClock />{' '}
-            {moment(p.end_date || moment()).diff(
-              moment(p.start_date),
-              'months'
-            )}{' '}
-            months
+            {moment
+              .duration(
+                moment(p.end_date || moment()).diff(moment(p.start_date))
+              )
+              .humanize()}{' '}
           </span>
         )}
       </div>
