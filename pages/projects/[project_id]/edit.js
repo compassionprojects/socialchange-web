@@ -38,10 +38,7 @@ export default function EditProject({ project, categories }) {
     <div className="container py-5">
       <Link
         className="btn btn-outline-secondary mb-4"
-        onClick={(e) => {
-          e.preventDefault();
-          window.history.back();
-        }}
+        onClick={() => router.back()}
         href="/">
         Back
       </Link>

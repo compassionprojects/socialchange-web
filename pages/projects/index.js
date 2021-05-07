@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'proptypes';
 import qs from 'qs';
 import { Input, Button } from 'reactstrap';
+import { FiMap } from 'react-icons/fi';
 import Meta from 'components/Meta';
 import Link from 'components/Link';
 import ProjectsList from 'components/ProjectsList';
@@ -52,6 +53,11 @@ export default function Projects(props) {
       </div>
       <div className="row">
         <div className="col-lg-8 col-sm-12 order-lg-1 order-2">
+          <div className="bg-light rounded text-right py-2 pr-3 mt-4">
+            <Link href="/projects/map">
+              <FiMap /> map view
+            </Link>
+          </div>
           <ProjectsList projects={projects} />
           <Paginate
             perPage={parseInt(per_page)}

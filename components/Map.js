@@ -44,19 +44,19 @@ function LocationMarker({ title, position, onEdit }) {
 }
 
 export default function Map(props) {
-  const { position, zoom } = props;
+  const { position, zoom, height } = props;
 
   return (
     <MapContainer
       center={position}
       zoom={zoom || 10}
       scrollWheelZoom={false}
-      style={{ height: 300 }}>
+      style={{ height: height || 300 }}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LocationMarker {...props} />
+      {props.children ? props.children : <LocationMarker {...props} />}
     </MapContainer>
   );
 }
@@ -66,6 +66,11 @@ Map.propTypes = {
   title: PropTypes.string,
   onEdit: PropTypes.func,
   zoom: PropTypes.number,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };
 
 LocationMarker.propTypes = {
