@@ -31,7 +31,7 @@ export default function Maps(props) {
 
   return (
     <div className="py-5">
-      <Meta title="Projects | NVC Social Change" />
+      <Meta title="Projects map | NVC Social Change" />
       <div className="container pb-4">
         <Link
           className="btn btn-outline-secondary mb-4"
