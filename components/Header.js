@@ -31,7 +31,9 @@ function Header() {
       <div className="container">
         <NavbarBrand href="/" tag={Link}>
           NVC Social Change{' '}
-          <code className="text-muted">&#123;stories&#125;</code>
+          <code className="text-muted d-none d-sm-inline-block">
+            &#123;stories&#125;
+          </code>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
