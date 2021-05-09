@@ -17,22 +17,12 @@ const Map = dynamic(import('components/Map'), {
 
 const Marker = dynamic(
   import('react-leaflet').then((m) => m.Marker),
-  {
-    ssr: false,
-    loading: function Loading() {
-      return <div className="text-center py-5 my-5">Loading...</div>;
-    },
-  }
+  { ssr: false }
 );
 
 const Popup = dynamic(
   import('react-leaflet').then((m) => m.Popup),
-  {
-    ssr: false,
-    loading: function Loading() {
-      return <div className="text-center py-5 my-5">Loading...</div>;
-    },
-  }
+  { ssr: false }
 );
 
 export default function Maps(props) {

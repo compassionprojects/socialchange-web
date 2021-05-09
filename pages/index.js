@@ -21,9 +21,8 @@ export default function Home({ stats }) {
               <h1>NVC and Social Change</h1>
               <p className="my-4">
                 This project is a global effort to collect all social change
-                stories where NVC has been a part of - started by a few people
-                who are passionate about social change and the impact of
-                Nonviolent Communication around us.
+                stories where Nonviolent Communication has been a part of to
+                influence policy and lessen the harms of punitive systems.
               </p>
               <div className="mt-4">
                 <Link href="/projects" className="btn btn-primary">
@@ -46,7 +45,8 @@ export default function Home({ stats }) {
             <div className="col-lg-8 col-md-12 mx-auto">
               <p>
                 The goal of this project is to show the impact of NVC in social
-                change.
+                change to influence policy and lessen the harms of punitive
+                systems.
               </p>
               <p>
                 Current situation is that there is no one place on the internet
