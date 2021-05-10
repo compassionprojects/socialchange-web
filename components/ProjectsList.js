@@ -2,6 +2,7 @@ import React from 'react';
 import PropType from 'proptypes';
 import classnames from 'classnames';
 import TimeAgo from 'react-timeago';
+import { Badge } from 'reactstrap';
 import truncate from 'truncate';
 import Link from 'components/Link';
 import { FiMapPin, FiClock } from 'react-icons/fi';
@@ -51,6 +52,11 @@ export default function ProjectsList(props) {
                 moment(p.end_date || moment()).diff(moment(p.start_date))
               )
               .humanize()}{' '}
+            {!p.end_date && (
+              <Badge color="warning" pill className="font-weight-normal">
+                ongoing
+              </Badge>
+            )}
           </span>
         )}
       </div>

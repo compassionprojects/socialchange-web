@@ -2,7 +2,7 @@ import React from 'react';
 import PropType from 'proptypes';
 import moment from 'moment';
 import styled from 'styled-components';
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Badge } from 'reactstrap';
 import Meta from 'components/Meta';
 import Link from 'components/Link';
 import TimeAgo from 'react-timeago';
@@ -112,6 +112,11 @@ export default function Project(props) {
                     moment(p.end_date || moment()).diff(moment(p.start_date))
                   )
                   .humanize()}{' '}
+                {!p.end_date && (
+                  <Badge color="warning" pill className="font-weight-normal">
+                    ongoing
+                  </Badge>
+                )}
               </span>
             </div>
 
