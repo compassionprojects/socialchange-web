@@ -125,7 +125,7 @@ export default function Project(props) {
                 <FiLink className="text-black-50 mt-1" />
                 <span className="ml-2">
                   <strong>Website</strong>:{' '}
-                  <a href={p.website} rel="noopener noreferrer">
+                  <a href={p.website} rel="noopener noreferrer" target="_blank">
                     {p.website} <FiArrowUpRight />
                   </a>
                 </span>
