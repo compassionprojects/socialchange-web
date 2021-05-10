@@ -6,7 +6,14 @@ import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import Meta from 'components/Meta';
 import Link from 'components/Link';
 import TimeAgo from 'react-timeago';
-import { FiList, FiUsers, FiClock, FiMapPin } from 'react-icons/fi';
+import {
+  FiList,
+  FiUsers,
+  FiClock,
+  FiMapPin,
+  FiLink,
+  FiArrowUpRight,
+} from 'react-icons/fi';
 import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/client';
 import { mapCountry } from '../../../lib';
@@ -107,6 +114,18 @@ export default function Project(props) {
                   .humanize()}{' '}
               </span>
             </div>
+
+            {p.website && (
+              <div className="py-1 d-flex">
+                <FiLink className="text-black-50 mt-1" />
+                <span className="ml-2">
+                  <strong>Website</strong>:{' '}
+                  <a href={p.website} rel="noopener noreferrer">
+                    {p.website} <FiArrowUpRight />
+                  </a>
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

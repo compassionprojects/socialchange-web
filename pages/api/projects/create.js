@@ -40,6 +40,8 @@ export default async (req, res) => {
     has_discussions,
     geo,
     country,
+    website,
+    num_people,
   } = req.body;
 
   const [project] = await db('projects')
@@ -54,6 +56,8 @@ export default async (req, res) => {
       geo: geo ? st.geomFromGeoJSON(geo) : null,
       country,
       category_id,
+      website,
+      num_people,
       has_discussions,
       project_status_id: project_status.id,
       created_by: author.id,

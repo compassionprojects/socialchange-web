@@ -30,6 +30,8 @@ export default async (req, res) => {
       'end_date',
       'has_discussions',
       'project_status_id',
+      'website',
+      'num_people',
     ])
     .from('projects')
     .innerJoin('categories', 'projects.category_id', 'categories.id')

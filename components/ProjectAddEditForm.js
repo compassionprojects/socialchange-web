@@ -85,6 +85,9 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
         if (!values.country) errors.country = 'Required';
         if (!values.category_id) errors.category_id = 'Required';
         if (!values.start_date) errors.start_date = 'Required';
+        if (values.website && !/https?:\/\/.+/.test(values.website)) {
+          errors.website = 'It should be a proper url, Ex: http://example.com';
+        }
         return errors;
       }}
       render={({
@@ -287,6 +290,37 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             />
             {/* <FormText color="muted">Give some pointers here</FormText> */}
           </FormGroup>
+          <Field name="num_people">
+            {({ input, meta }) => (
+              <FormGroup>
+                <Label for="num_people">Number of people involved</Label>
+                <Input
+                  {...input}
+                  type="number"
+                  id="num_people"
+                  placeholder="For example: 20"
+                  invalid={isInvalid(meta)}
+                />
+                <Feedback meta={meta} />
+              </FormGroup>
+            )}
+          </Field>
+          <Field name="website">
+            {({ input, meta }) => (
+              <FormGroup>
+                <Label for="website">Website</Label>
+                <Input
+                  {...input}
+                  type="url"
+                  pattern="https?://.+"
+                  id="website"
+                  placeholder="https://example.com"
+                  invalid={isInvalid(meta)}
+                />
+                <Feedback meta={meta} />
+              </FormGroup>
+            )}
+          </Field>
           <FormGroup check>
             <Label check>
               <Field
