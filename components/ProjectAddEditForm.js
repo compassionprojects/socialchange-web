@@ -135,7 +135,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             )}
           </Field>
           <FormGroup>
-            <Label for="intentions">Intentions</Label>
+            <Label for="intentions">Intentions (optional)</Label>
             <Field
               name="intentions"
               component="textarea"
@@ -235,7 +235,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
           <Field name="end_date">
             {({ input }) => (
               <FormGroup>
-                <Label for="end_date">End Date</Label>
+                <Label for="end_date">End Date (optional)</Label>
                 <div>
                   <DatePicker
                     selected={input.value ? moment(input.value).toDate() : null}
@@ -264,7 +264,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             )}
           </Field>
           <FormGroup>
-            <Label for="outcomes">Outcomes</Label>
+            <Label for="outcomes">Outcomes (optional)</Label>
             <Field
               name="outcomes"
               component="textarea"
@@ -277,7 +277,9 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             {/* <FormText color="muted">Give some pointers here</FormText> */}
           </FormGroup>
           <FormGroup>
-            <Label for="societal_change">Observed societal change</Label>
+            <Label for="societal_change">
+              Observed societal change (optional)
+            </Label>
             <Field
               name="societal_change"
               component="textarea"
@@ -293,7 +295,9 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
           <Field name="num_people">
             {({ input, meta }) => (
               <FormGroup>
-                <Label for="num_people">Number of people involved</Label>
+                <Label for="num_people">
+                  Number of people involved (optional)
+                </Label>
                 <Input
                   {...input}
                   type="number"
@@ -308,7 +312,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
           <Field name="website">
             {({ input, meta }) => (
               <FormGroup>
-                <Label for="website">Website</Label>
+                <Label for="website">Website (optional)</Label>
                 <Input
                   {...input}
                   type="url"
