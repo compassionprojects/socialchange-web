@@ -73,6 +73,25 @@ export default function Project(props) {
                 <p>{p.intentions}</p>
               </section>
             )}
+            {p.outcomes && (
+              <section className="py-4">
+                <SectionTitle>
+                  Outcomes <small className="text-muted">after using NVC</small>
+                </SectionTitle>
+                <p>{p.outcomes}</p>
+              </section>
+            )}
+            {p.societal_change && (
+              <section className="py-4">
+                <SectionTitle>
+                  Observed Societal Change{' '}
+                  <small className="text-muted">
+                    as a result of this project
+                  </small>
+                </SectionTitle>
+                <p>{p.societal_change}</p>
+              </section>
+            )}
           </div>
           <div className="col-lg-4 col-sm-12 pb-4">
             <div className="py-1 d-flex align-items-center">
@@ -131,36 +150,19 @@ export default function Project(props) {
                 </span>
               </div>
             )}
+
+            {p.geo && (
+              <div className="mt-5">
+                <Map
+                  position={JSON.parse(p.geo).coordinates}
+                  title={p.title}
+                  zoom={5}
+                  height={250}
+                />
+              </div>
+            )}
           </div>
         </div>
-      </div>
-
-      {p.geo && (
-        <Map
-          position={JSON.parse(p.geo).coordinates}
-          title={p.title}
-          zoom={5}
-        />
-      )}
-
-      <div className="container pt-4 pb-5">
-        {p.outcomes && (
-          <section className="py-4">
-            <SectionTitle>
-              Outcomes <small className="text-muted">after using NVC</small>
-            </SectionTitle>
-            <p>{p.outcomes}</p>
-          </section>
-        )}
-        {p.societal_change && (
-          <section className="py-4">
-            <SectionTitle>
-              Observed Societal Change{' '}
-              <small className="text-muted">as a result of this project</small>
-            </SectionTitle>
-            <p>{p.societal_change}</p>
-          </section>
-        )}
       </div>
     </>
   );
