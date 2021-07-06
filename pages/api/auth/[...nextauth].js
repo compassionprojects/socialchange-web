@@ -26,10 +26,17 @@ export default NextAuth({
   // Configure one or more authentication providers
   providers: [
     Providers.Email({
-      server: process.env.EMAIL_SERVER,
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
       from: process.env.EMAIL_FROM,
       maxAge: 24 * 60 * 60, // 24h
-      sendVerificationRequest: ({
+      /* sendVerificationRequest: ({
         identifier: email,
         url,
         token,
@@ -38,7 +45,7 @@ export default NextAuth({
       }) => {
         console.log('Sending email...', email, token, baseUrl, provider);
         console.log(url);
-      },
+      }, */
     }),
   ],
 
