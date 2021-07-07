@@ -27,7 +27,7 @@ const securityHeaders = [
   {
     key: 'Content-Security-Policy',
     value:
-      "default-src 'self'; img-src * data:; script-src 'self' 'unsafe-eval'; style-src 'unsafe-inline'; style-src-elem 'self' 'unsafe-inline'",
+      "default-src 'self'; img-src * data:; script-src 'self' 'unsafe-eval'; style-src 'unsafe-inline'; style-src-elem 'self' 'unsafe-inline'; connect-src 'self' api.opencagedata.com",
   },
 ];
 
