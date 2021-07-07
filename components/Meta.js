@@ -1,15 +1,49 @@
 import React from 'react';
-import Head from 'next/head';
+// import Head from 'next/head';
 import PropType from 'proptypes';
+import { Helmet } from 'react-helmet';
 
 export default function Meta({ title, description }) {
+  const siteTitle = 'Nonviolent Communication (NVC) Social Change Stories';
   return (
-    <Head>
-      <title>{title}</title>
-      <meta description={description} />
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
+    <Helmet
+      title={title}
+      titleTemplate={siteTitle ? `%s | ${siteTitle}` : null}
+      meta={[
+        {
+          name: 'description',
+          content: description,
+        },
+        {
+          property: 'og:title',
+          content: title,
+        },
+        {
+          property: 'og:description',
+          content: description,
+        },
+        {
+          property: 'og:type',
+          content: 'website',
+        },
+        {
+          name: 'twitter:card',
+          content: 'summary',
+        },
+        // {
+        //   name: 'twitter:creator',
+        //   content: twitter,
+        // },
+        {
+          name: 'twitter:title',
+          content: title,
+        },
+        {
+          name: 'twitter:description',
+          content: description,
+        },
+      ]}
+    />
   );
 }
 
