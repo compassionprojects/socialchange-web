@@ -35,7 +35,7 @@ export default function AddProject({ categories }) {
   return (
     <div className="container py-5">
       <h1>Add project</h1>
-      <Meta title="Add project | NVC Social Change" />
+      <Meta title="Add project" />
       <div className="mt-2 mb-4 text-muted">
         Write a short description about what to write and why we are collecting
         this data.

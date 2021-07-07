@@ -8,7 +8,7 @@ export default function Categories(props) {
   return (
     <div className="container py-5">
       <h1 className="mb-3">Categories</h1>
-      <Meta title="Categories | NVC Social Change" />
+      <Meta title="Categories" />
 
       {categories.map((c, i) => (
         <span key={c.id}>

@@ -50,7 +50,7 @@ export default function Project(props) {
           )}
         </h1>
 
-        <Meta title={`${p.title} | NVC Social Change`} />
+        <Meta title={`${p.title}`} />
 
         <div className="text-muted small">
           <TimeAgo date={p.created_at} minPeriod={60} /> by{' '}

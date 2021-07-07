@@ -8,7 +8,7 @@ export default function Users(props) {
   return (
     <div className="container py-5">
       <h1>{user.name}</h1>
-      <Meta title={`${user.name} | NVC Social Change`} />
+      <Meta title={`${user.name}`} />
       Projects added by {user.name}
       <ProjectsList projects={projects} />
     </div>

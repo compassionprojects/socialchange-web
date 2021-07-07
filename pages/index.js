@@ -10,7 +10,7 @@ export default function Home({ stats }) {
   return (
     <>
       <Meta
-        title="Nonviolent Communication (NVC) Social Change stories"
+        title="NVC Social Change Stories"
         description="A global effort to collect all social change
       stories where Nonviolent Communication (NVC) has been a part of"
       />

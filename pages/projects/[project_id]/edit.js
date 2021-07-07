@@ -43,7 +43,7 @@ export default function EditProject({ project, categories }) {
         Back
       </Link>
       <h1>Edit {project.title}</h1>
-      <Meta title={`Edit ${project.title} | NVC Social Change`} />
+      <Meta title={`Edit ${project.title}`} />
       <ProjectAddEditForm
         onSubmit={updateProject}
         project={project}

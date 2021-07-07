@@ -24,7 +24,7 @@ export default function SignIn({ callbackUrl }) {
 
   return (
     <div className="container py-5">
-      <Meta title={'Sign in | NVC Social Change'} />
+      <Meta title={'Sign in'} />
 
       <Form onSubmit={submit}>
         <Row form>

@@ -16,7 +16,7 @@ export default function Category(props) {
         <BreadcrumbItem active>{category.name}</BreadcrumbItem>
       </Breadcrumb>
       <h1>{category.name}</h1>
-      <Meta title={`${category.name} | NVC Social Change`} />
+      <Meta title={`${category.name}`} />
       {category.description}
       <ProjectsList projects={projects} />
     </div>

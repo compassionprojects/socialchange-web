@@ -24,7 +24,7 @@ export default function Projects(props) {
   };
   return (
     <div className="container py-5">
-      <Meta title="Projects | NVC Social Change" />
+      <Meta title="Projects" />
       <div className="row align-items-center">
         <div className="col-sm-12 col-md-6 col-lg-8">
           <h1>Projects</h1>

@@ -11,7 +11,7 @@ export default function SearchResults(props) {
   const router = useRouter();
   return (
     <div className="container py-5">
-      <Meta title={`Search results for ${q} | NVC Social Change`} />
+      <Meta title={`Search results for ${q}`} />
       <Link
         className="btn btn-outline-secondary mb-4"
         onClick={() => router.back()}
