@@ -33,7 +33,7 @@ function App({ Component, pageProps }) {
 export default App;
 
 App.propTypes = {
-  Component: PropTypes.node,
+  Component: PropTypes.func,
   pageProps: PropTypes.object,
 };
 
