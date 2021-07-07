@@ -51,7 +51,7 @@ function Header() {
               </NavLink>
             </NavItem>
             <NavItem className="ml-lg-3">
-              <NavLink tag={Link} href="mailto:madhu@nomaddev.co">
+              <NavLink tag={Link} href="mailto:nvc@socialchange.io">
                 Contact
               </NavLink>
             </NavItem>
