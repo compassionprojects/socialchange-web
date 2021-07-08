@@ -98,7 +98,11 @@ export default function Project(props) {
               <div className="my-5">
                 <h3>Follow ups</h3>
                 <div className="p-4 h-100 position-relative">
-                  <div className="border-right h-100 position-absolute ml-5 pr-2"></div>
+                  <div
+                    className="border-right h-100 position-absolute ml-5"
+                    style={{ paddingRight: 4 }}
+                  />
+                  <div className="pt-4" />
                   {p.followups.map((f) => (
                     <div className="d-flex" key={f.id}>
                       <div className="text-muted flex-shrink-0">
@@ -106,12 +110,24 @@ export default function Project(props) {
                         <br />
                         {moment(f.date).format('YYYY')}
                       </div>
+                      <div
+                        className="bg-primary rounded-circle position-absolute ml-5 pr-2 mt-2"
+                        style={{
+                          width: 10,
+                          height: 10,
+                        }}
+                      />
                       <div className="ml-5 mb-5">
                         <strong>{f.title}</strong>
-                        <p className="mt-2" style={{ whiteSpace: 'pre-line' }}>
+                        <p
+                          className="mt-2 mb-2"
+                          style={{ whiteSpace: 'pre-wrap' }}>
                           {f.description}
                         </p>
                         {/* <span>{f.updated_by}</span> */}
+                        <span className="text-muted small">
+                          <TimeAgo date={f.created_at} minPeriod={60} />
+                        </span>
                       </div>
                     </div>
                   ))}
