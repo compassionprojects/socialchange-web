@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'proptypes';
 import qs from 'qs';
-import { Input, Button } from 'reactstrap';
 import { FiMap } from 'react-icons/fi';
 import Meta from 'components/Meta';
 import Link from 'components/Link';
+import SearchBox from 'components/SearchBox';
 import ProjectsList from 'components/ProjectsList';
 import Paginate from 'components/Paginate';
 import { useRouter } from 'next/router';
@@ -30,20 +30,7 @@ export default function Projects(props) {
           <h1>Projects</h1>
         </div>
         <div className="col-sm-12 col-md-6 col-lg-4">
-          <form action="/projects/search" className="my-2 my-sm-0 form-inline">
-            <div className="d-flex">
-              <Input
-                required
-                placeholder="Search projects"
-                type="search"
-                className="mr-1"
-                name="q"
-              />
-              <Button color="primary" type="submit" className="flex-shrink-0">
-                Search
-              </Button>
-            </div>
-          </form>
+          <SearchBox className="my-2 my-sm-0 form-inline" />
         </div>
       </div>
 
