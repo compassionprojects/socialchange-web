@@ -2,6 +2,7 @@ import React from 'react';
 import PropType from 'proptypes';
 import moment from 'moment';
 import styled from 'styled-components';
+import pluralize from 'pluralize';
 import { Breadcrumb, BreadcrumbItem, Badge } from 'reactstrap';
 import Meta from 'components/Meta';
 import Link from 'components/Link';
@@ -13,6 +14,7 @@ import {
   FiMapPin,
   FiLink,
   FiArrowUpRight,
+  FiGitCommit,
 } from 'react-icons/fi';
 import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/client';
@@ -92,6 +94,30 @@ export default function Project(props) {
                 <p>{p.societal_change}</p>
               </section>
             )}
+            {p.followups.length > 0 && (
+              <div className="my-5">
+                <h3>Follow ups</h3>
+                <div className="p-4 h-100 position-relative">
+                  <div className="border-right h-100 position-absolute ml-5 pr-2"></div>
+                  {p.followups.map((f) => (
+                    <div className="d-flex" key={f.id}>
+                      <div className="text-muted flex-shrink-0">
+                        {moment(f.date).format('MMM')}
+                        <br />
+                        {moment(f.date).format('YYYY')}
+                      </div>
+                      <div className="ml-5 mb-5">
+                        <strong>{f.title}</strong>
+                        <p className="mt-2" style={{ whiteSpace: 'pre-line' }}>
+                          {f.description}
+                        </p>
+                        {/* <span>{f.updated_by}</span> */}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
           <div className="col-lg-4 col-sm-12 pb-4">
             <div className="py-1 d-flex align-items-center">
@@ -147,6 +173,16 @@ export default function Project(props) {
                   <a href={p.website} rel="noopener noreferrer" target="_blank">
                     {p.website} <FiArrowUpRight />
                   </a>
+                </span>
+              </div>
+            )}
+
+            {p.followups.length > 0 && (
+              <div className="py-1 d-flex">
+                <FiGitCommit className="text-black-50 mt-1" />
+                <span className="ml-2">
+                  {p.followups.length}{' '}
+                  {pluralize('follow ups', p.followups.length)}
                 </span>
               </div>
             )}

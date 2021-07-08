@@ -12,3 +12,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default pg;
+
+export async function batchUpdate({ table, column, merge }, collection) {
+  const trx = await pg.transaction();
+  const queries = collection.map((tuple) =>
+    pg(table).insert(tuple).onConflict(column).merge(merge).transacting(trx)
+  );
+  return Promise.all(queries).then(trx.commit).catch(trx.rollback);
+}

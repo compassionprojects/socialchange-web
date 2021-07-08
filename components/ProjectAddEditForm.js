@@ -15,6 +15,8 @@ import { CountryDropdown } from 'react-country-region-selector';
 import DatePicker from 'react-datepicker';
 import opencage from 'opencage-api-client';
 import { OnChange } from 'react-final-form-listeners';
+import arrayMutators from 'final-form-arrays';
+import { FieldArray } from 'react-final-form-arrays';
 import Link from 'components/Link';
 import moment from 'moment';
 import { mapCountry } from '../lib';
@@ -77,6 +79,9 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
           start_date: moment(p.start_date).toISOString(),
         });
       }}
+      mutators={{
+        ...arrayMutators,
+      }}
       initialValues={{ ...project }}
       validate={(values) => {
         const errors = {};
@@ -92,7 +97,9 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
       }}
       render={({
         handleSubmit,
-        form,
+        form: {
+          mutators: { push },
+        },
         submitting,
         pristine,
         values,
@@ -342,7 +349,139 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
               topics and discuss)
             </FormText>
           </FormGroup>
-          <br />
+          <fieldset className="border rounded p-4 mb-5">
+            <legend className="w-auto px-3">Project follow ups</legend>
+            <p>
+              Project follow ups allow you to add updates to a project over
+              time. This is one way to keep the community up to date on the
+              progress of the project.
+            </p>
+            <FieldArray name="followups">
+              {({ fields }) =>
+                fields.map((name, index) => (
+                  <div key={name} className="mb-5">
+                    <strong>Follow up #{index + 1}</strong>
+                    {fields.value[index].removed && (
+                      <>
+                        <div className="my-2">
+                          Will be removed when you update
+                        </div>
+                        <button
+                          className="btn btn-outline-primary"
+                          type="button"
+                          onClick={() =>
+                            fields.update(index, {
+                              ...fields.value[index],
+                              removed: false,
+                            })
+                          }>
+                          Undo remove
+                        </button>
+                      </>
+                    )}
+                    {!fields.value[index].removed && (
+                      <>
+                        <Field name={`${name}.title`}>
+                          {({ input, meta }) => (
+                            <_FormGroup className="form-group my-3">
+                              <Label for={`${name}.title`}>
+                                Follow up title
+                              </Label>
+                              <Input
+                                required
+                                {...input}
+                                type="text"
+                                id={`${name}.title`}
+                                placeholder="Follow up title"
+                                invalid={isInvalid(meta)}
+                              />
+                              <Feedback meta={meta} />
+                            </_FormGroup>
+                          )}
+                        </Field>
+                        <Field name={`${name}.date`}>
+                          {({ input, meta }) => (
+                            <_FormGroup className="form-group my-3">
+                              <Label for={`${name}.date`}>Follow up date</Label>
+                              <div
+                                className={isInvalid(meta) ? 'is-invalid' : ''}>
+                                <DatePicker
+                                  selected={
+                                    input.value
+                                      ? moment(input.value).toDate()
+                                      : null
+                                  }
+                                  maxDate={new Date()}
+                                  onChange={(date) => {
+                                    // On Change, you should use final-form
+                                    // Field Input prop to change the value
+                                    if (moment(date).isValid()) {
+                                      input.onChange(moment(date));
+                                    } else {
+                                      input.onChange(null);
+                                    }
+                                  }}
+                                  required
+                                  showYearDropdown
+                                  dateFormat="dd/MM/yyyy"
+                                  className={classnames('form-control', {
+                                    'is-invalid': isInvalid(meta),
+                                  })}
+                                  id={`${name}.date`}
+                                  placeholderText="Follow up date"
+                                />
+                              </div>
+                              <Feedback meta={meta} />
+                            </_FormGroup>
+                          )}
+                        </Field>
+                        <Field name={`${name}.description`}>
+                          {({ input, meta }) => (
+                            <_FormGroup className="form-group my-3">
+                              <Label for={`${name}.description`}>
+                                Follow up description
+                              </Label>
+                              <Input
+                                required
+                                {...input}
+                                type="textarea"
+                                rows={6}
+                                id={`${name}.description`}
+                                placeholder="Follow up description"
+                                invalid={isInvalid(meta)}
+                              />
+                              {/* <FormText color="muted">Give some pointers here</FormText> */}
+                              <Feedback meta={meta} />
+                            </_FormGroup>
+                          )}
+                        </Field>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            fields.update(index, {
+                              ...fields.value[index],
+                              removed: true,
+                            })
+                          }
+                          className="btn btn-outline-danger">
+                          Remove Follow up
+                        </button>
+                      </>
+                    )}
+                  </div>
+                ))
+              }
+            </FieldArray>
+            <br />
+            <div className="mb-3">
+              <button
+                type="button"
+                className="btn btn-outline-primary"
+                onClick={() => push('followups', {})}>
+                Add Follow up
+              </button>
+            </div>
+          </fieldset>
           <Button
             color={(!submitting && 'primary') || 'secondary'}
             type="submit"

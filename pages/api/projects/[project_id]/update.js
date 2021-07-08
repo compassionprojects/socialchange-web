@@ -1,4 +1,4 @@
-import db from '../../../../db';
+import db, { batchUpdate } from '../../../../db';
 import elastic from '../../../../elastic';
 import jwt from 'next-auth/jwt';
 import knexPostgis from 'knex-postgis';
@@ -41,6 +41,7 @@ export default async (req, res) => {
     country,
     website,
     num_people,
+    followups,
   } = req.body;
 
   const [project] = await db('projects')
@@ -65,6 +66,31 @@ export default async (req, res) => {
     .returning('*');
 
   if (!project) return res.status(401).json({ error: 'Authorization error' });
+
+  await batchUpdate(
+    {
+      table: 'followups',
+      column: 'id',
+      merge: ['title', 'description', 'date', 'updated_at'],
+    },
+    followups
+      .filter((f) => !f.removed) // only update non deleted followups
+      .map((f) => ({
+        ...f,
+        project_id,
+        updated_at: new Date(),
+        updated_by: author.id,
+        created_by: author.id,
+      }))
+  );
+
+  // delete followups that are marked to be removed
+  await db('followups')
+    .whereIn(
+      'id',
+      followups.filter((f) => f.removed).map((f) => f.id)
+    )
+    .del();
 
   try {
     const [category] = await db('categories')
