@@ -1,4 +1,4 @@
-import db from '../../../db';
+import db, { batchUpdate } from '../../../db';
 import elastic from '../../../elastic';
 import jwt from 'next-auth/jwt';
 import knexPostgis from 'knex-postgis';
@@ -42,6 +42,7 @@ export default async (req, res) => {
     country,
     website,
     num_people,
+    followups,
   } = req.body;
 
   const [project] = await db('projects')
@@ -64,6 +65,19 @@ export default async (req, res) => {
       updated_by: author.id,
     })
     .returning('*');
+
+  await batchUpdate(
+    {
+      table: 'followups',
+      column: 'id',
+    },
+    followups.map((f) => ({
+      ...f,
+      project_id: project.id,
+      updated_by: author.id,
+      created_by: author.id,
+    }))
+  );
 
   try {
     const [category] = await db('categories')

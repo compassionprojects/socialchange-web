@@ -43,5 +43,13 @@ export default async (req, res) => {
     )
     .where(filter);
 
-  res.status(200).json(project);
+  const followups = await db
+    .select('*')
+    .from('followups')
+    .where({
+      project_id,
+    })
+    .orderBy('date');
+
+  res.status(200).json({ ...project, followups });
 };
