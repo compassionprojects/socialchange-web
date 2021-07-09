@@ -64,7 +64,7 @@ export default function Project(props) {
           <div className="col-lg-8 col-sm-12">
             <section className="py-4">
               <SectionTitle>Description</SectionTitle>
-              <p>{p.description}</p>
+              <Paragraph>{p.description}</Paragraph>
             </section>
             {p.intentions && (
               <section className="py-4">
@@ -72,7 +72,7 @@ export default function Project(props) {
                   Intentions{' '}
                   <small className="text-muted">of the project</small>
                 </SectionTitle>
-                <p>{p.intentions}</p>
+                <Paragraph>{p.intentions}</Paragraph>
               </section>
             )}
             {p.outcomes && (
@@ -80,7 +80,7 @@ export default function Project(props) {
                 <SectionTitle>
                   Outcomes <small className="text-muted">after using NVC</small>
                 </SectionTitle>
-                <p>{p.outcomes}</p>
+                <Paragraph>{p.outcomes}</Paragraph>
               </section>
             )}
             {p.societal_change && (
@@ -91,7 +91,7 @@ export default function Project(props) {
                     as a result of this project
                   </small>
                 </SectionTitle>
-                <p>{p.societal_change}</p>
+                <Paragraph>{p.societal_change}</Paragraph>
               </section>
             )}
             {p.followups.length > 0 && (
@@ -119,11 +119,9 @@ export default function Project(props) {
                       />
                       <div className="ml-5 mb-5">
                         <strong>{f.title}</strong>
-                        <p
-                          className="mt-2 mb-2"
-                          style={{ whiteSpace: 'pre-wrap' }}>
+                        <Paragraph className="mt-2 mb-2">
                           {f.description}
-                        </p>
+                        </Paragraph>
                         {/* <span>{f.updated_by}</span> */}
                         <span className="text-muted small">
                           <TimeAgo date={f.created_at} minPeriod={60} />
@@ -237,3 +235,7 @@ export async function getServerSideProps(ctx) {
 const SectionTitle = styled.div.attrs({
   className: 'h5',
 })``;
+
+const Paragraph = styled.div`
+  white-space: pre-wrap;
+`;
