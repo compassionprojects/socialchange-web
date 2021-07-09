@@ -78,6 +78,7 @@ export default async (req, res) => {
       .map((f) => ({
         ...f,
         project_id,
+        // @todo this must only be updated when records are updated
         updated_at: new Date(),
         updated_by: author.id,
         created_by: author.id,

@@ -21,7 +21,7 @@ export default function Footer() {
               </Link>
             </li>
             <li className={listItemClass}>
-              <Link className="text-reset" href="mailto:madhu@nomaddev.co">
+              <Link className="text-reset" href="mailto:nvc@socialchange.io">
                 Contact
               </Link>
             </li>

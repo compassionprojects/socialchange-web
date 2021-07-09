@@ -72,7 +72,7 @@ export default function Home({ stats }) {
                 we’ve started this project. We are doing all of this openly and
                 transparently. If you find this project useful and see any value
                 feel free to donate - we use opencollective which offers
-                complete transparency on how your donation will be utilised.
+                complete transparency on how your donations will be utilised.
               </p>
             </div>
           </div>
