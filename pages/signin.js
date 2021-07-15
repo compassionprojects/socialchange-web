@@ -33,8 +33,9 @@ export default function SignIn({ callbackUrl }) {
               <FormGroup>
                 <h1>Sign in</h1>
                 <div className="mb-5 mt-3">
-                  Sign-in in order to add social change projects where NVC has
-                  been a part of
+                  Please <a href="mailto:nvc@socialchange.io">contact us</a> if
+                  you would like to have an account in order to add social
+                  change projects.
                 </div>
                 <Label for="email">Email</Label>
                 <Input

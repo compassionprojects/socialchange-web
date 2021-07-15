@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
+import db from '../../../db';
 
 export default NextAuth({
   session: {
@@ -20,6 +21,10 @@ export default NextAuth({
     async session(session, token) {
       session.user.id = parseInt(token.sub, 10);
       return session;
+    },
+    async signIn({ email }) {
+      const [user] = await db.select(['id']).from('users').where({ email });
+      return !!user; // only existing users can sign in
     },
   },
 
