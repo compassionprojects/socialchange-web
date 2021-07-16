@@ -145,6 +145,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             <Label for="intentions">Intentions (optional)</Label>
             <Field
               name="intentions"
+              parse={(v) => v}
               component="textarea"
               className="form-control"
               rows={4}
@@ -275,6 +276,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             <Field
               name="outcomes"
               component="textarea"
+              parse={(v) => v}
               className="form-control"
               rows={7}
               type="text"
@@ -290,6 +292,7 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             <Field
               name="societal_change"
               component="textarea"
+              parse={(v) => v}
               className="form-control"
               rows={7}
               type="text"
