@@ -63,7 +63,6 @@ export default function Project(props) {
         <div className="row">
           <div className="col-lg-8 col-sm-12">
             <section className="py-4">
-              <SectionTitle>Description</SectionTitle>
               <Paragraph>{p.description}</Paragraph>
             </section>
             {p.intentions && (
