@@ -3,6 +3,7 @@ import PropTypes from 'proptypes';
 import styled from 'styled-components';
 import classnames from 'classnames';
 import { Form, Field } from 'react-final-form';
+import TextArea from 'react-expanding-textarea';
 import {
   Button,
   FormGroup as _FormGroup,
@@ -127,34 +128,36 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
             {({ input, meta }) => (
               <FormGroup>
                 <Label for="description">Description</Label>
-                <Input
+                <TextArea
                   required
                   {...input}
-                  type="textarea"
+                  className={classnames('form-control', {
+                    'is-invalid': isInvalid(meta),
+                  })}
                   rows={6}
                   id="description"
                   placeholder="A brief description of the project, situation in which NVC was introduced"
-                  invalid={isInvalid(meta)}
                 />
                 {/* <FormText color="muted">Give some pointers here</FormText> */}
                 <Feedback meta={meta} />
               </FormGroup>
             )}
           </Field>
-          <FormGroup>
-            <Label for="intentions">Intentions (optional)</Label>
-            <Field
-              name="intentions"
-              parse={(v) => v}
-              component="textarea"
-              className="form-control"
-              rows={4}
-              type="text"
-              id="intentions"
-              placeholder="The intentions and goals of using Nonviolent Communication in the project"
-            />
-            {/* <FormText color="muted">Give some pointers here</FormText> */}
-          </FormGroup>
+          <Field name="intentions" parse={(v) => v}>
+            {({ input }) => (
+              <FormGroup>
+                <Label for="intentions">Intentions (optional)</Label>
+                <TextArea
+                  {...input}
+                  className="form-control"
+                  rows={4}
+                  id="intentions"
+                  placeholder="The intentions and goals of using Nonviolent Communication in the project"
+                />
+                {/* <FormText color="muted">Give some pointers here</FormText> */}
+              </FormGroup>
+            )}
+          </Field>
           <Field name="country">
             {({ input, meta }) => (
               <FormGroup>
@@ -271,37 +274,38 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
               </FormGroup>
             )}
           </Field>
-          <FormGroup>
-            <Label for="outcomes">Outcomes (optional)</Label>
-            <Field
-              name="outcomes"
-              component="textarea"
-              parse={(v) => v}
-              className="form-control"
-              rows={7}
-              type="text"
-              id="outcomes"
-              placeholder="The outcomes of and after using Nonviolent Communication in the project"
-            />
-            {/* <FormText color="muted">Give some pointers here</FormText> */}
-          </FormGroup>
-          <FormGroup>
-            <Label for="societal_change">
-              Observed societal change (optional)
-            </Label>
-            <Field
-              name="societal_change"
-              component="textarea"
-              parse={(v) => v}
-              className="form-control"
-              rows={7}
-              type="text"
-              id="societal_change"
-              placeholder="Observed changes in the society as a consequence of
-              using NVC"
-            />
-            {/* <FormText color="muted">Give some pointers here</FormText> */}
-          </FormGroup>
+          <Field name="outcomes" parse={(v) => v}>
+            {({ input }) => (
+              <FormGroup>
+                <Label for="outcomes">Outcomes (optional)</Label>
+                <TextArea
+                  {...input}
+                  className="form-control"
+                  rows={7}
+                  id="outcomes"
+                  placeholder="The outcomes of and after using Nonviolent Communication in the project"
+                />
+                {/* <FormText color="muted">Give some pointers here</FormText> */}
+              </FormGroup>
+            )}
+          </Field>
+          <Field name="societal_change" parse={(v) => v}>
+            {({ input }) => (
+              <FormGroup>
+                <Label for="societal_change">
+                  Observed societal change (optional)
+                </Label>
+                <TextArea
+                  {...input}
+                  className="form-control"
+                  rows={7}
+                  id="societal_change"
+                  placeholder="Observed changes in the society as a consequence of using NVC"
+                />
+                {/* <FormText color="muted">Give some pointers here</FormText> */}
+              </FormGroup>
+            )}
+          </Field>
           <Field name="num_people">
             {({ input, meta }) => (
               <FormGroup>
@@ -364,23 +368,19 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                 fields.map((name, index) => (
                   <div key={name} className="mb-5">
                     <strong>Follow up #{index + 1}</strong>
+                    <br />
                     {fields.value[index].removed && (
-                      <>
-                        <div className="my-2">
-                          Will be removed when you update
-                        </div>
-                        <button
-                          className="btn btn-outline-primary"
-                          type="button"
-                          onClick={() =>
-                            fields.update(index, {
-                              ...fields.value[index],
-                              removed: false,
-                            })
-                          }>
-                          Undo remove
-                        </button>
-                      </>
+                      <button
+                        className="btn btn-outline-primary mt-2"
+                        type="button"
+                        onClick={() =>
+                          fields.update(index, {
+                            ...fields.value[index],
+                            removed: false,
+                          })
+                        }>
+                        Undo remove
+                      </button>
                     )}
                     {!fields.value[index].removed && (
                       <>
@@ -444,14 +444,15 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                               <Label for={`${name}.description`}>
                                 Follow up description
                               </Label>
-                              <Input
+                              <TextArea
                                 required
                                 {...input}
-                                type="textarea"
+                                className={classnames('form-control', {
+                                  'is-invalid': isInvalid(meta),
+                                })}
                                 rows={6}
                                 id={`${name}.description`}
                                 placeholder="Follow up description"
-                                invalid={isInvalid(meta)}
                               />
                               {/* <FormText color="muted">Give some pointers here</FormText> */}
                               <Feedback meta={meta} />
