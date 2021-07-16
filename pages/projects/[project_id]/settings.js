@@ -3,37 +3,16 @@ import PropTypes from 'proptypes';
 import Meta from 'components/Meta';
 import { useSession, getSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
-import ProjectAddEditForm from 'components/ProjectAddEditForm';
 import Link from 'components/Link';
 import ProjectNav from 'components/ProjectNav';
-import 'react-datepicker/dist/react-datepicker.css';
-import 'leaflet/dist/leaflet.css';
 
-export default function EditProject({ project, categories }) {
+export default function ProjectSettings({ project }) {
   const [session] = useSession();
   const router = useRouter();
   if (!session && typeof window !== 'undefined') {
     router.push('/signin');
     return null;
   }
-
-  const updateProject = async (p) => {
-    try {
-      const res = await fetch(`/api/projects/${p.id}/update`, {
-        method: 'post',
-        body: JSON.stringify(p),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      await res.json();
-      router.push(`/projects/${p.id}`);
-    } catch (e) {
-      console.log(e);
-      // @todo display error with proper details so that user understands
-      // and corrects what's wrong
-    }
-  };
 
   return (
     <div className="container py-5">
@@ -43,34 +22,52 @@ export default function EditProject({ project, categories }) {
         href="/">
         Back
       </Link>
-      <Meta title={`Edit ${project.title}`} />
+      <Meta title={`Settings for ${project.title}`} />
+
       <div className="row">
         <div className="col-md-3">
           <ProjectNav />
         </div>
         <div className="col-md-9">
-          <h1>Edit {project.title}</h1>
-          <ProjectAddEditForm
-            onSubmit={updateProject}
-            project={project}
-            categories={categories}
-          />
+          <h1>Settings for {project.title}</h1>
+          {/* @todo collect reason for archiving */}
+          {/* @todo display archived project separately */}
+          {/* @todo do a project deletion separately */}
+          <Link
+            className="btn btn-outline-danger mt-5"
+            onClick={async (e) => {
+              e.preventDefault();
+              if (
+                !window.confirm(
+                  'Are you sure you want to archive this project?'
+                )
+              ) {
+                return;
+              }
+
+              await fetch(`/api/projects/${project.id}/archive`, {
+                method: 'POST',
+              });
+
+              router.push('/projects');
+              // @todo display notification
+            }}
+            href="/">
+            Archive project
+          </Link>
         </div>
       </div>
     </div>
   );
 }
 
-EditProject.propTypes = {
+ProjectSettings.propTypes = {
   project: PropTypes.object,
-  categories: PropTypes.array,
 };
 
 export async function getServerSideProps(ctx) {
   const { project_id } = ctx.query;
   const session = await getSession(ctx);
-  const cres = await fetch(`${process.env.API_ROOT}/api/categories`);
-  const categories = await cres.json();
 
   const pres = await fetch(
     `${process.env.API_ROOT}/api/projects/${project_id}`
@@ -97,6 +94,6 @@ export async function getServerSideProps(ctx) {
   }
 
   return {
-    props: { session, categories, project },
+    props: { session, project },
   };
 }

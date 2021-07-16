@@ -22,7 +22,6 @@ import Link from 'components/Link';
 import moment from 'moment';
 import { mapCountry } from '../lib';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
 
 const Map = dynamic(import('components/Map'), {
   ssr: false,
@@ -47,7 +46,6 @@ const requiredFields = {
 // using https://github.com/donavon/use-event-listener
 
 export default function ProjectAddEditForm({ onSubmit, project, categories }) {
-  const router = useRouter();
   const [geography, setGeo] = useState(
     project.geo ? JSON.parse(project.geo) : null
   );
@@ -520,34 +518,6 @@ export default function ProjectAddEditForm({ onSubmit, project, categories }) {
                 ))}
               </ul>
             </div>
-          )}
-          <br />
-          {/* @todo collect reason for archiving */}
-          {/* @todo display archived project separately */}
-          {/* @todo do a project deletion separately */}
-          {project.id && (
-            <Link
-              className="btn btn-outline-danger mt-5"
-              onClick={async (e) => {
-                e.preventDefault();
-                if (
-                  !window.confirm(
-                    'Are you sure you want to archive this project?'
-                  )
-                ) {
-                  return;
-                }
-
-                await fetch(`/api/projects/${project.id}/archive`, {
-                  method: 'POST',
-                });
-
-                router.push('/projects');
-                // @todo display notification
-              }}
-              href="/">
-              Archive project
-            </Link>
           )}
         </form>
       )}
