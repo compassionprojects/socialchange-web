@@ -3,12 +3,12 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 import { useRouter } from 'next/router';
 import Link from 'components/Link';
 
-export default function ProjectNav() {
+export default function ProjectNav(props) {
   const { query, asPath } = useRouter();
   const projectPath = `/projects/${query.project_id}`;
 
   return (
-    <ListGroup>
+    <ListGroup {...props}>
       <ListGroupItem
         active={asPath === `${projectPath}/edit`}
         tag={Link}

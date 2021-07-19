@@ -7,11 +7,15 @@ export const defaultFilters = {
 };
 
 export default async (req, res) => {
-  const { page, per_page, category_id } = req.query;
+  const { page, per_page, category_id, author_id } = req.query;
   const limit = parseInt(per_page, 10) || 15;
   const offset = (parseInt(page, 10) - 1 || 0) * limit;
+
+  const filters = {};
+  if (author_id) filters['projects.created_by'] = author_id;
   const filter = {
     ...defaultFilters,
+    ...filters,
   };
 
   if (category_id) filter.category_id = category_id;

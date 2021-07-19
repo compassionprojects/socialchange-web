@@ -3,6 +3,7 @@ import PropTypes from 'proptypes';
 import Meta from 'components/Meta';
 import { useSession, getSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
+import { FiChevronLeft } from 'react-icons/fi';
 import Link from 'components/Link';
 import ProjectNav from 'components/ProjectNav';
 
@@ -16,20 +17,19 @@ export default function ProjectSettings({ project }) {
 
   return (
     <div className="container py-5">
-      <Link
-        className="btn btn-outline-secondary mb-4"
-        onClick={() => router.back()}
-        href="/">
-        Back
-      </Link>
       <Meta title={`Settings for ${project.title}`} />
 
       <div className="row">
         <div className="col-md-3">
-          <ProjectNav />
+          <Link
+            className="btn btn-outline-secondary mb-4"
+            href={`/projects/${project.id}`}>
+            <FiChevronLeft /> Back
+          </Link>
+          <ProjectNav className="my-5" />
         </div>
         <div className="col-md-9">
-          <h1>Settings for {project.title}</h1>
+          <h1>Settings</h1>
           {/* @todo collect reason for archiving */}
           {/* @todo display archived project separately */}
           {/* @todo do a project deletion separately */}

@@ -78,6 +78,9 @@ function Header() {
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem disabled>{session.user.email}</DropdownItem>
+                  <Link className="dropdown-item" href="/account/projects">
+                    My Projects
+                  </Link>
                   <DropdownItem onClick={signOut}>Sign out</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
