@@ -14,6 +14,12 @@ cp .env.local.example .env.local
 npm run dev
 ```
 
+Make sure to have Docker and run
+
+```sh
+docker-compose up -d # this will start the database and elastic search
+```
+
 Open `localhost:3000`
 
 ## Deployment
