@@ -55,7 +55,7 @@ export default function Footer() {
             <li className={listItemClass}>
               <a
                 className="text-reset"
-                href="https://opencollective.com/nvc-social-change"
+                href="https://opencollective.com/compassion-projects"
                 target="_blank"
                 rel="noopener noreferrer">
                 Open Collective <FiArrowUpRight />
@@ -64,7 +64,7 @@ export default function Footer() {
             <li className={listItemClass}>
               <a
                 className="text-reset"
-                href="https://opencollective.com/nvc-social-change"
+                href="https://opencollective.com/compassion-projects"
                 target="_blank"
                 rel="noopener noreferrer">
                 Donate <FiArrowUpRight />

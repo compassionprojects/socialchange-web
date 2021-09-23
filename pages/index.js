@@ -78,7 +78,7 @@ export default function Home({ stats }) {
           </div>
           <div className="text-center">
             <a
-              href="https://opencollective.com/nvc-social-change"
+              href="https://opencollective.com/compassion-projects"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary">
