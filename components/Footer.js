@@ -46,7 +46,7 @@ export default function Footer() {
             <li className={listItemClass}>
               <a
                 className="text-reset"
-                href="https://github.com/nvcsocialchange/forum/discussions"
+                href="https://github.com/compassionprojects/socialchange-web/discussions"
                 target="_blank"
                 rel="noopener noreferrer">
                 Forum <FiArrowUpRight />
@@ -73,7 +73,7 @@ export default function Footer() {
             <li className={listItemClass}>
               <a
                 className="text-reset"
-                href="https://github.com/nvcsocialchange"
+                href="https://github.com/compassionprojects"
                 target="_blank"
                 rel="noopener noreferrer">
                 GitHub <FiArrowUpRight />
