@@ -65,7 +65,7 @@ function Header() {
             <NavItem className="ml-lg-3">
               <a
                 className="nav-link"
-                href="https://opencollective.com/compassion-projects"
+                href="https://opencollective.com/nvcsocialchangestories"
                 target="_blank"
                 rel="noopener noreferrer">
                 Donate <FiArrowUpRight />
