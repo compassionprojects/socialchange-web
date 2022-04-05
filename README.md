@@ -1,3 +1,5 @@
+Not actively maintained
+
 ## NVC Social Change Stories
 
 This project is a global effort to collect all social change stories where Nonviolent Communication has been a part of to influence policy and lessen the harms of punitive systems
