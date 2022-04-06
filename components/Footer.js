@@ -2,6 +2,7 @@ import React from 'react';
 import { useSession } from 'next-auth/client';
 import { FiArrowUpRight } from 'react-icons/fi';
 import Link from 'components/Link';
+import { contactEmail } from '../constants';
 
 export default function Footer() {
   const [session, loading] = useSession();
@@ -21,7 +22,7 @@ export default function Footer() {
               </Link>
             </li>
             <li className={listItemClass}>
-              <Link className="text-reset" href="mailto:nvc@socialchange.io">
+              <Link className="text-reset" href={`mailto:${contactEmail}`}>
                 Contact
               </Link>
             </li>

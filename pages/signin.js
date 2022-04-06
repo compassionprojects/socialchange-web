@@ -4,6 +4,7 @@ import PropType from 'proptypes';
 import { useRouter } from 'next/router';
 import Meta from 'components/Meta';
 import { signIn, useSession } from 'next-auth/client';
+import { contactEmail } from '../constants';
 
 export default function SignIn({ callbackUrl }) {
   const [email, setEmail] = useState('');
@@ -33,7 +34,7 @@ export default function SignIn({ callbackUrl }) {
               <FormGroup>
                 <h1>Sign in</h1>
                 <div className="mb-5 mt-3">
-                  Please <a href="mailto:nvc@socialchange.io">contact us</a> if
+                  Please <a href={`mailto:${contactEmail}`}>contact us</a> if
                   you would like to have an account in order to add social
                   change projects.
                 </div>

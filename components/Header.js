@@ -15,6 +15,7 @@ import {
 } from 'reactstrap';
 import Link from 'components/Link';
 import { FiArrowUpRight, FiChevronDown } from 'react-icons/fi';
+import { contactEmail } from '../constants';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +52,7 @@ function Header() {
               </NavLink>
             </NavItem>
             <NavItem className="ml-lg-3">
-              <NavLink tag={Link} href="mailto:nvc@socialchange.io">
+              <NavLink tag={Link} href={`mailto:${contactEmail}`}>
                 Contact
               </NavLink>
             </NavItem>
