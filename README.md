@@ -1,4 +1,4 @@
-Not actively maintained
+Not actively maintained. See the successor of this project https://github.com/compassionprojects/socialchange
 
 ## NVC Social Change Stories
 
