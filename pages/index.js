@@ -52,19 +52,19 @@ export default function Home({ stats }) {
                 Current situation is that there is no one place on the internet
                 where you can find all social change stories where NVC is
                 involved. They are all spread across which makes it difficult to
-                find, to be inspired, to learn and to take action.
+                find, to inspire, to learn and change policies.
               </p>
 
               <p>
                 With our centralising of all stories, we hope to 1) show the
                 impact of NVC 2) let people around the world inspire each other
-                by telling their stories, inspiring each other 3) let people
-                around the world engage with each other and build a community
+                by telling their stories 3) let people
+                around the world engage with each other, build a community
                 around and take action.
               </p>
               <p>
                 If you are interested in helping out, please share this page
-                with the relevant people.
+                with relevant people.
               </p>
 
               <p>
